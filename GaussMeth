@@ -25,3 +25,46 @@ for (int i = m - 1; i >= 0; --i)
 		X[i] -= X[j] * A[i][j] / A[i][i];
 }
 </Gauss>
+
+<Seidel>
+// Условие окончания
+bool converge(double *xk, double *xkp)
+{
+    double norm = 0;
+    for (int i = 0; i < n; i++) 
+    {
+      norm += (xk[i] - xkp[i])*(xk[i] - xkp[i]);
+    }
+    if(sqrt(norm) >= eps)
+      return false;
+    return true;
+}
+ 
+/*
+    Ход метода, где:
+    a[n][n] - Матрица коэффициентов
+    x[n], p[n] - Текущее и предыдущее решения
+    b[n] - Столбец правых частей
+    Все перечисленные массивы вещественные и
+    должны быть определены в основной программе,
+    также в массив x[n] следует поместить начальное
+    приближение столбца решений (например, все нули)
+*/
+ 
+do
+{
+    for (int i = 0; i < n; i++)
+        p[i] = x[i];
+ 
+    for (int i = 0; i < n; i++)
+    {
+        double var = 0;
+        for (int j = 0; j < i; j++)
+            var += (a[i][j] * x[j]);
+        for (int j = i + 1; j < n; j++)
+            var += (a[i][j] * p[j]);
+        x[i] = (b[i] - var) / a[i][i];
+    }
+}
+while (!converge(x, p));
+</Seidel>
