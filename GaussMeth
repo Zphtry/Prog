@@ -1,3 +1,4 @@
+<Gauss>
 int m;
 vector<vector<double>> A(m, vector<double>(m));//левая часть(коэфф. при иксах)
 vector<double> F(m);//правая часть(свободные члены)
@@ -23,3 +24,4 @@ for (int i = m - 1; i >= 0; --i)
 	for (int j = i + 1; j < m; ++j)
 		X[i] -= X[j] * A[i][j] / A[i][i];
 }
+</Gauss>
