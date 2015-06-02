@@ -13,8 +13,8 @@ void main()
 	vector<vector<double>> A(m, vector<double>(m));//левая часть(коэффициенты при иксах)
 	vector<double> F(m);//правая часть(свободные члены)
 	vector<double> X(m), P(m);//Текущее решение(X) и предыдущее(P)
-         A = Transp(A) * A; //Обе части уравнения нужно умножить на A транспонированную
-         F = Transp(A) * F;
+        A = Transp(A) * A; //Обе части уравнения нужно умножить на A транспонированную
+        F = Transp(A) * F;
 	do
 	{
 		for (int i = 0; i < m; ++i)	P[i] = X[i];//Запоминаем иксы в P
