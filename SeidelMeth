@@ -17,19 +17,14 @@ void main()
         F = Transp(A) * F;
 	do
 	{
-		for (int i = 0; i < m; ++i)	P[i] = X[i];//Запоминаем иксы в P
+		for (int i = 0; i < m; ++i) P[i] = X[i];//Запоминаем иксы в P
 		for (int i = 0; i < m; ++i)
 		{
-			double var = 0;
+			X[i] = F[i];
 			for (int j = 0; j < m; ++j)
-			{
-				if (j < i) var += A[i][j] * X[j];
-				if (j > i) var += A[i][j] * P[j];
-			}
-			X[i] = (F[i] - var) / A[i][i];
-			cout << X[i] << " = (" << F[i] << " - " << var << ") / " << A[i][i] << endl;
+				if (j != i) X[i] -= A[i][j] * X[j];
+			X[i] /= A[i][i];
 		}
-		cout << endl;
 	} while (!converge(m, X, P, eps));
 }
 </Seidel>
