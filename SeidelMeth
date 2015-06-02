@@ -1,3 +1,4 @@
+<Seidel>
 bool converge(int m, vector<double> xk, vector<double> xkp, double eps)//Функция, определяющая близки ли X и P с точностью eps
 {
 	double norm = 0;
@@ -28,3 +29,4 @@ void main()
 			X[i] = (F[i] - var) / A[i][i];
 		}
 	} while (!converge(m, X, P, eps));
+</Seidel>
