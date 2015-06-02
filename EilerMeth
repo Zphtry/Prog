@@ -1,0 +1,17 @@
+<Eiler_1Order>
+double dy(double x, double y)//y'=f(x,y)
+void main()
+{
+	const int n;
+	double x0, y0;
+	double h;
+	vector<double> X(n), Y(n);
+	X[0] = x0;
+	Y[0] = y0;
+	for (int i = 0; i < n - 1; i++)
+	{
+		X[i + 1] = X[i] + h;
+		Y[i + 1] = Y[i] + h * dy(X[i], Y[i]);
+	}
+}
+</Eiler_1Order>
