@@ -1,4 +1,4 @@
-<Gauss>
+<Seidel>
 bool converge(int m, vector<double> X, vector<double> P, double eps)//Функция, определяющая близки ли X и P с точностью eps
 {
 	double norm = 0;
@@ -32,4 +32,4 @@ void main()
 		cout << endl;
 	} while (!converge(m, X, P, eps));
 }
-</Gauss>
+</Seidel>
