@@ -1,0 +1,36 @@
+#include "stdafx.h"
+#include <conio.h>
+#include <iostream>
+using namespace std;
+
+void main()
+{
+	class HuiPoimiChe
+	{
+		double n;
+	public:
+		void GetN()
+		{
+			while (true)
+			{
+				cout << "Type n of [1; 9] ";
+				cin >> n;
+				if (n < 1 || n>9)
+				{
+					cout << "Try again\n";
+					continue;
+				}
+				break;
+			}
+		}
+		void PrintMultilicationTable()
+		{
+			for (int i = 1; i < 50; ++i)
+				cout << i << " * " << n << " = " << i*n << endl;
+		}
+	};
+	HuiPoimiChe object;
+	object.GetN();
+	object.PrintMultilicationTable();
+	_getch();
+}
