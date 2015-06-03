@@ -1,0 +1,17 @@
+<1>
+#include "stdafx.h"
+#include <conio.h>
+#include <iostream>
+using namespace std;
+
+void main()
+{
+	int x, y;
+	cout << "Type x: ";
+	cin >> x;
+	if (x > 0) y = sin(x)*sin(x);
+	else y = 1 + 2 * sin(x)*sin(x);
+	cout << "y = " << y;
+	_getch();
+}
+
