@@ -5,7 +5,7 @@ using namespace std;
 
 void main()
 {
-	int x, y;
+	double x, y;
 	cout << "Type x: ";
 	cin >> x;
 	if (x > 0) y = sin(x)*sin(x);
