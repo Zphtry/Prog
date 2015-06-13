@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace RememberColor
+{
+    public partial class MainForm : Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Graphics g;
+            GameObject[] gameObjects = { new ColorBarriers(), new Ball() };
+            timer1.Interval = 1;
+            timer1.Start();
+            KeyDown += (object obj, KeyEventArgs kE) =>
+                {
+                    if(kE.KeyCode==Keys.W)
+                    {
+
+                    }
+                };
+            timer1.Tick += (object obj, EventArgs eTick) =>
+                {
+
+                    pictureBox1.Size = new Size(Width, Height);
+                    pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                    g = Graphics.FromImage(pictureBox1.Image);
+                    foreach (var x in gameObjects)
+                    {
+                        x.SetSizes(pictureBox1.Size);
+                        if (x is ColorBarriers) g.FillRectangle(Brushes.Black, x.RectangleObj);
+                        if (x is Ball) g.FillEllipse(Brushes.Black, x.RectangleObj);
+                    }
+                };
+        }
+    }
+    abstract class GameObject
+    {
+        public Rectangle RectangleObj = new Rectangle();
+        public abstract void SetSizes(Size patternSize);
+    }
+    class ColorBarriers : GameObject
+    {
+        public Color RecentColor { get; set; }
+        public Color PresentColor { get; set; }
+        public override void SetSizes(Size patternSize)
+        {
+            RectangleObj.Location = (Point)patternSize;
+            RectangleObj.Size = new Size(patternSize.Width / 30, patternSize.Height);
+        }
+
+    }
+    class Ball :GameObject
+    {
+        public override void SetSizes(Size patternSize)
+        {
+            RectangleObj.Location = new Point(0, patternSize.Height / 3);
+            RectangleObj.Size = new Size(patternSize.Height / 3, patternSize.Height / 3);
+        }
+
+    }
+}
