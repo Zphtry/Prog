@@ -125,3 +125,61 @@ namespace RememberColor
                     ballShape.Location = new Point(ballShape.Location.X, ballShape.Location.Y + Height / 3);
 
 */
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace RememberColor
+{
+    public partial class MainForm : Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            Ball ball = new Ball(Size, 1);
+            pictureBox1.Size = new Size(Width, Height);
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(pictureBox1.Image);
+            KeyDown += (object kObj, KeyEventArgs kEvent) =>
+            {
+                if (kEvent.KeyCode == Keys.W && ball.Position > 0)
+                    ball.Position--;
+                if (kEvent.KeyCode == Keys.S && ball.Position < 3)
+                    ball.Position++;
+                ball = new Ball(Size, ball.Position);
+                g.FillEllipse(Brushes.Black, ball.coloredRectangle.Shape);
+                pictureBox1.Refresh();
+                g.Clear(Color.White);
+            };
+        }
+    }
+    class GraphObject
+    {
+        public struct ColoredRectangle
+        {
+            public Rectangle Shape;
+            public Color ColorShape;
+        }
+        public ColoredRectangle coloredRectangle;
+    }
+    class Ball : GraphObject
+    {
+        public int Position;
+        public Ball(Size pattern, int currPos)
+        {
+            Position = currPos;
+            coloredRectangle.Shape = new Rectangle(0, Position * pattern.Height / 3, pattern.Height / 3, pattern.Height / 3);
+            coloredRectangle.ColorShape = Color.Black;
+        }
+    }
+}
