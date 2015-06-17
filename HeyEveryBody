@@ -183,3 +183,17 @@ namespace RememberColor
         }
     }
 }
+
+
+
+        PictureBox[] Test;
+
+
+
+            Test = new PictureBox[3] { Test1, Test2, Test3 };
+            for (int i = 0; i < 3; ++i)
+            {
+                Test[i].Size = new Size(Giving.Width, HeightPer3);
+                Test[i].Location = new Point(Width, Square.Margin.Top + i * HeightPer3);
+            }
+            
