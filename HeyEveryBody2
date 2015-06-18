@@ -1,0 +1,154 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MicroLibrary;
+
+namespace RememberColor
+{
+    public partial class MainForm : Form
+    {
+
+        int HeightPer3;
+
+        int SquarePosition;
+
+        List<PictureBox> Test;
+
+        int Speed;
+
+        List<Color> Colors;
+
+        bool Start;
+
+        Random MyRandom;
+
+        int Score;
+
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        MicroTimer microTimer;
+
+        void SetSquareLocation(int Position)
+        {
+            Square.Location = new Point(Square.Margin.Left,
+                Square.Margin.Top + Position * HeightPer3);
+
+            SquarePosition = Position;
+
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            Cursor.Hide();
+
+            HeightPer3 = (Height - 2 * Square.Margin.Top) / 3;
+
+            Square.Margin = new Padding(Height / 30);
+            this.Padding = Square.Margin;
+            Square.Size = new Size(HeightPer3, HeightPer3);
+            SetSquareLocation(1);
+
+            Giving.Size = new Size(Square.Width / 4, 3 * HeightPer3);
+
+            Test = new List<PictureBox>(3);
+
+            for (int i = 0; i < Test.Capacity; ++i)
+            {
+                Test.Add(new PictureBox());
+                Controls.Add(Test[i]);
+                Test[i].Size = new Size(Giving.Width, HeightPer3);
+
+            }
+
+
+            Colors = new List<Color>() { Color.Blue, Color.Green, Color.Yellow, Color.Red, Color.Magenta, Color.Orange, Color.Cyan };
+
+            Start = true;
+
+            MyRandom = new Random();
+
+            Score = 0;
+
+            microTimer = new MicroTimer();
+            microTimer.Enabled = true;
+            microTimer.Interval = 1000;
+            //   microTimer.MicroTimerElapsed += new MicroTimer.MicroTimerElapsedEventHandler(Frame);
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W && SquarePosition > 0) { SetSquareLocation(SquarePosition - 1); }
+            if (e.KeyCode == Keys.S && SquarePosition < 2) { SetSquareLocation(SquarePosition + 1); }
+        }
+
+       /* private void Frame(object sender, MicroTimerEventArgs e)
+        {
+
+            Giving.Location = new Point(Giving.Location.X - Speed, Giving.Location.Y);
+            foreach (var x in Test)
+                x.Location = new Point(x.Location.X - Speed, x.Location.Y);
+
+
+            if (Start)
+            {
+                Giving.Location = new Point(Width, Square.Margin.Top);
+
+                for (int i = 0; i < Test.Capacity; ++i)
+                    Test[i].Location = new Point((int)(2.2 * Width),
+                        Square.Margin.Top + i * HeightPer3);
+
+                int GoodColor = MyRandom.Next(0, Colors.Count);
+
+                Giving.BackColor = Colors[GoodColor];
+
+                List<Color> TempColor = new List<Color>(Colors);
+
+                TempColor.RemoveAt(GoodColor);
+
+                int Right = MyRandom.Next(0, 3);
+
+                for (int i = 0; i < 3; ++i)
+
+                    if (i == Right) Test[i].BackColor = Giving.BackColor;
+
+                    else
+                    {
+                        int n = MyRandom.Next(0, TempColor.Count);
+
+                        Test[i].BackColor = TempColor[n];
+
+                        TempColor.RemoveAt(n);
+                    }
+
+                Start = false;
+
+            }
+            else if (Test[0].Location.X < -Test[0].Width)
+                Start = true;
+
+            if (Square.Width >= Test[SquarePosition].Location.X)
+                if (Giving.BackColor != Test[SquarePosition].BackColor)
+                {
+                    Score = 1; Start = true;
+                }
+
+            //  Speed = (int)(Score / 400) + 15;
+            Speed = trackBar1.Value;
+
+            Score++;
+
+            Count.Text = Score.ToString() + "/" + Speed.ToString();
+
+        }*/
+    }
+}
