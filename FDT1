@@ -1,0 +1,48 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+void main()
+{
+	bool A, B, C , D;
+
+	cout << "A = "; cin >> A;
+	cout << "\nB = "; cin >> B;
+	cout << "\nC = "; cin >> C;
+	cout << "\nD = "; cin >> D;
+
+	bool o1, o2, o3, o4, o5, o6, o7, o8, o9;
+
+	o1 = !(!A && !B && !C && !D);
+
+	o2 = !(A && !B && !C && !D);
+
+	o3 = !(!A && B && !C && !D);
+
+	o4 = !( A && B && !C && !D);
+
+	o5 = !(!A && !B && C && !D);
+
+	o6 = !(A && !B && C && !D);
+
+	o7 = !(!A && B && C && !D);
+
+	o8 = !(!A&& !B && !C && D);
+
+	o9 = !(A && !B && !C && D);
+
+	cout << "\n1 = " << o1;
+	cout << "\n2 = " << o2;
+	cout << "\n3 = " << o3;
+	cout << "\n4 = " << o4;
+	cout << "\n5 = " << o5;
+	cout << "\n6 = " << o6;
+	cout << "\n7 = " << o7;
+	cout << "\n8 = " << o8;
+	cout << "\n9 = " << o9;
+
+	_getch();
+
+}
+
