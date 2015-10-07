@@ -1,0 +1,66 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+
+void main()
+{
+	bool a1, a2, a3 ,a4, a5, a6, a7, a8, a9;
+
+	cout << "1 = "; cin >> a1;
+	cout << "\n2 = "; cin >> a2;
+	cout << "\n3 = "; cin >> a3;
+	cout << "\n4 = "; cin >> a4;
+	cout << "\n5 = "; cin >> a5;
+	cout << "\n6 = "; cin >> a6;
+	cout << "\n7 = "; cin >> a7;
+	cout << "\n8 = "; cin >> a8;
+	cout << "\n9 = "; cin >> a9;
+	
+
+	bool b2, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18;
+
+	b2 = !(!a8 ||!a9);
+
+	b6 = b2;
+
+	b7 = (!a7) && b6;
+
+	b8 = (!a6) && b6;
+
+	b9 = (!a5) && b6;
+
+	b10 = (!a4) && b6;
+
+	b11 = b7;
+
+	b12 = b8;
+
+	b13 = (!a3) && a4 && a5 && b6;
+
+	b14 = (!a2) && a4 && a5 && b6;
+
+	b15 = b7;
+
+	b16 = (!a5) && a6 && b6;
+
+	b17 = (!a3) && a4 && a6 && b6;
+
+	b18 = (!a1) && a2 && a4 && a6 && b6;
+
+
+	bool A, B, C, D;
+
+	A = !((!a9) || b15 || b16 || b17 || b18);
+
+	B = !(b11 || b12 || b13 || b14);
+
+	C = !(b7 || b8 || b9 || b10);
+
+	D = b2;
+
+
+	cout << "\nA = " << A << " B = " << B << " C = " << B << " D = " << D;
+
+	_getch();
+}
