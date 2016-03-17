@@ -1,0 +1,9 @@
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\bin\Debug\TInf1.exe.config
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\bin\Debug\TInf1.exe
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\bin\Debug\TInf1.pdb
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.csprojResolveAssemblyReference.cache
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.Form1.resources
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.Properties.Resources.resources
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.csproj.GenerateResource.Cache
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.exe
+c:\users\andrey\documents\visual studio 2015\Projects\TInf1\TInf1\obj\Debug\TInf1.pdb
