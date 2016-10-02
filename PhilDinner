@@ -55,7 +55,7 @@ namespace PhilDinner
             fork[rightFork].IsOccup = true;
 
 
-            Console.WriteLine(name + " обедает" + "\t ({0}мс)", waiting);
+            Console.WriteLine(name + " обедает ({0}мс)", waiting);
 
             Console.WriteLine("Вилки {0} и {1} заняты  ({2}мс)", leftFork + 1, rightFork + 1, waiting);
 
