@@ -1,9 +1,3 @@
-def Un(x, t):
-
-	ser = [(A(i) * np.cos(pl * i * a * t) + B(i) * np.sin(pl * i * a * t)) * np.sin(pl * i * x) for i in range(1, N)]
-
-	return sum(ser)
-
 def UStep(Uij__1, Ui_1j__1, Ui__1j__1, Uij__2):
 
 	#r = a * h_t / h_x
