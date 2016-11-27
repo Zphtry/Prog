@@ -1,0 +1,24 @@
+body {
+  margin: 0; }
+
+header {
+  width: 100%;
+  height: 50px;
+  background-color: #666666; }
+
+.main-search {
+  height: 20px;
+  width: 80%;
+  margin: 40px auto;
+  display: block; }
+
+.categs {
+  margin: 40px auto;
+  width: 95%;
+  border-spacing: 3px; }
+
+tr {
+  background-color: #00CCFF; }
+
+td {
+  padding-bottom: 25%; }
