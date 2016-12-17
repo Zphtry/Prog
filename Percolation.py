@@ -37,12 +37,8 @@ for x in forcalc:
 clrs = ("orange", "yellow", "green", "lightblue", "blue", "violet")
 for i in range(len(forcalc)): fordraw[i].set_fc(clrs[forcalc[i][2] % len(clrs)])
 for x in fordraw: ax.add_patch(x)
-ax.add_collection(fordraw)
 
 plt.subplots_adjust(left=0, right=1, bottom=0, top=1)
 plt.axis('equal')
 plt.grid(True)
 plt.show()
-
-
-
