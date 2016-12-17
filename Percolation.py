@@ -5,7 +5,7 @@ import random as rnd
 from matplotlib.collections import PatchCollection
 
 L = 100
-p = .599
+p = .595
 
 fig, ax = plt.subplots()
 
@@ -14,7 +14,7 @@ for i in range(L):
 	for j in range(L):
 		if rnd.random() <= p:
 			forcalc.append([i, j, None])
-			fordraw.append(ptch.Rectangle((i, j), 1, 1))
+			fordraw.append(ptch.Rectangle([i, j], 1, 1))
 
 def gt(x):
 	if x + [None] in forcalc: return True, forcalc.index(x + [None])
@@ -34,11 +34,19 @@ for x in forcalc:
 
 	if dive(x[:2]): n += 1
 
-clrs = ("orange", "yellow", "green", "lightblue", "blue", "violet")
-for i in range(len(forcalc)): fordraw[i].set_fc(clrs[forcalc[i][2] % len(clrs)])
-for x in fordraw: ax.add_patch(x)
+n = 7
+clrs, clr = np.linspace(0, 1, n), []
+for x in forcalc:
+	clr.append(clrs[x[2] % n])
+coll = PatchCollection(fordraw)
+coll.set_array(np.array(clr))
+ax.add_collection(coll)
+
 
 plt.subplots_adjust(left=0, right=1, bottom=0, top=1)
 plt.axis('equal')
 plt.grid(True)
 plt.show()
+
+
+
