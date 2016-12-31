@@ -1,0 +1,8 @@
+django-admin startproject [projectname]
+cd [projectname]/
+python3 manage.py createsuperuser
+***superuser creating***
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py startapp [appname]
+python3 manage.py runserver
