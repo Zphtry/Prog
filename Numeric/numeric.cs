@@ -25,6 +25,7 @@ for (int i = m - 1; i >= 0; --i)
 		X[i] -= X[j] * A[i][j] / A[i][i];
 }
 </Gauss>
+
 <Seidel>
 bool converge(int m, vector<double> X, vector<double> P, double eps)//Функция, определяющая близки ли X и P с точностью eps
 {
@@ -55,6 +56,7 @@ void main()
 	} while (!converge(m, X, P, eps));
 }
 </Seidel>
+
 <Eiler_1Order>
 double dy(double x, double y)//y'=f(x,y)
 void main()
@@ -72,6 +74,7 @@ void main()
 	}
 }
 </Eiler_1Order>
+
 <Eiler_2Order>
 double d2y(double x, double y, double dy)
 void main()
