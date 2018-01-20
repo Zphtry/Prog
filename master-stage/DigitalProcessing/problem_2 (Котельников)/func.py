@@ -1,9 +1,9 @@
 import numpy as np
 
-def Func(t, T):
-  if 0 <= t <= T:
-      return 2 * np.exp(-t / .5)
-  return 0
+A, tau = 2, .5
+def _func(t):
+
+  return A * np.exp(-t / tau) if 0 <= t.all() < ([t[-1]] * len(t)).all()  else 0
 
 # function y = Func(t,T)
 #   if t>=0 && t<=T
