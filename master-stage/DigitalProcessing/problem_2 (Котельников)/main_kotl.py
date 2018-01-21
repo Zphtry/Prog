@@ -5,21 +5,19 @@ from cdf     import CDF
 from func    import _func
 from fourier import _fourier
 
+N = 800
 
-N   = 800
+T = .3
 
-T   = 1
-Tc  = 1
+T_max  = 1
+om_max = 100
 
-omc  = 100
-
-t  = np.linspace(0, Tc, N)
-om = np.linspace(0, omc, N)
+t  = np.linspace(0, T_max, N)
+om = np.linspace(0, om_max, N)
 
 n = 7
 
-
-func = _func(t, Tc)
+func = np.array(list(map(lambda x: _func(x, T_max), t)))
 sp_1 = plt.subplot(221)
 sp_1.plot(t, func, color=(0, .9, 0))
 sp_1.set_title('Заданный сигнал')
@@ -39,7 +37,6 @@ sp_4 = plt.subplot(224)
 sp_4.plot(t, np.real(fou), color=(0, 0, .5))
 sp_4.set_title('Спектральная характеристика')
 
-
 plt.tight_layout()
 plt.show()
 
@@ -50,28 +47,17 @@ for i in range(N):
 
 print(freq)
 
-
 T_disc = np.pi / freq
-NN = int(np.fix(Tc / T_disc))
-# t1 = np.linspace(0, omc, N)
-# t1 = np.arange(0, Tc, T / 900)
+NN = int(np.fix(T_max / T_disc))
 
-# Xn1 = np.zeros(len(t1))
-Xn1 = np.zeros(N)
-
+func_recovered = np.zeros(N)
 for i in range(N):
   for nn in range(NN + 1):
-    Xn1[i] += _func(T * (nn - 1), Tc) * CDF(t[i], T, nn - 1)
+    func_recovered[i] += _func(T * (nn - 1), T_max) * CDF(t[i], T, nn - 1)
 
-# for i in range(len(t1)):
-#   for nn in range(NN + 1):
-#     Xn1[i] += _func(T * (nn - 1), Tc) * CDF(t1[i], T, nn - 1)
-
-plt.plot(t, Xn1)
+plt.plot(t, func)
+plt.plot(t, func_recovered)
 plt.show()
-
-# plot(t1,x1);
-# plot(t1,Xn1);
 
 # err = abs(x1 - Xn1);
 # MaxEps = max(err);
