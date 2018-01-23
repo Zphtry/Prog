@@ -1,10 +1,11 @@
 import numpy as np
-from w import W
+from dft_part import dft_exp
 
-def DFT(X):
+
+def FFT(X):
+
   N = len(X)
   V = np.log2(N)
-
 
   if V % 2 != 0:
     V = np.ceil(V)
@@ -36,17 +37,17 @@ def DFT(X):
         O[Ok] = X[k]
         Ok += 1
 
-    X1 = DFT(E)
-    X2 = DFT(O)
+    X1 = FFT(E)
+    X2 = FFT(O)
 
     for k in range(N):
       if k < N / 2:
-        y.append(X1[k] + W(k - 1, 1, N) * X2[k])
+        y.append(X1[k] + dft_exp(k - 1, 1, N) * X2[k])
       
       else:
-        y.append(X1[k - N // 2] - W(k - N // 2 - 1, 1, N) * X2[k - N // 2])
+        y.append(X1[k - N // 2] - dft_exp(k - N // 2 - 1, 1, N) * X2[k - N // 2])
 
     return y
 
 
-print(DFT([3, 4, 5, 0]))
+# print(DFT([3, 4, 5, 0]))

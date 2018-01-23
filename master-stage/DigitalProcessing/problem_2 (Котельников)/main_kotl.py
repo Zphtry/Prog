@@ -7,7 +7,9 @@ from fourier import _fourier
 
 N = 800
 
-T = .3
+
+#период функции отсчётов
+T = .1
 
 T_max  = 1
 om_max = 100
@@ -59,8 +61,9 @@ plt.plot(t, func)
 plt.plot(t, func_recovered)
 plt.show()
 
-# err = abs(x1 - Xn1);
+err = abs(func - func_recovered)
 # MaxEps = max(err);
 # disp(MaxEps);
 
-# plot(t1,err);
+plt.plot(t, err)
+plt.show()
