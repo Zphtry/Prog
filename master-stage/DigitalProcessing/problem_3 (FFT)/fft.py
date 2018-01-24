@@ -42,12 +42,11 @@ def FFT(X):
 
     for k in range(N):
       if k < N / 2:
-        y.append(X1[k] + dft_exp(k - 1, 1, N) * X2[k])
+        y.append(X1[k] + dft_exp(k, 1, N) * X2[k])
       
       else:
-        y.append(X1[k - N // 2] - dft_exp(k - N // 2 - 1, 1, N) * X2[k - N // 2])
+        y.append(X1[k - N // 2] - dft_exp(k - N // 2, 1, N) * X2[k - N // 2])
 
     return y
 
 
-# print(DFT([3, 4, 5, 0]))

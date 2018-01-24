@@ -1,9 +1,9 @@
 import numpy as np
 
 def Func(t):
-  A   = [    1,      2,    10]
-  f   = [10000,  20000, 40000]
-  Phi = [.5236, 2.0944, .7854]
+  A   = [    .5,    1,    5]
+  f   = [1000,  3000, 6000]
+  Phi = [np.pi / 3, np.pi, np.pi / 2]
 
   y = 0
   for k in range(3):
