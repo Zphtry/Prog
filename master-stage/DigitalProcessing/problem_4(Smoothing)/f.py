@@ -1,7 +1,7 @@
 import numpy as np
 
 def F(N):
-  M1 = 49
+  M1 = 41
   M2 = 23
   y = np.zeros(N)
   for n in range(N):
