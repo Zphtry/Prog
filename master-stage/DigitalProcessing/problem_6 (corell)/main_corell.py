@@ -36,8 +36,6 @@ x = np.sin(w1 * T * teta) + np.cos(w2 * T * teta)
 
 r = b * np.random.rand(N)
 
-print(len(teta))
-
 y = x + (r - np.mean(r))
 
 plt.plot(teta, x)
@@ -90,6 +88,8 @@ max_num = Search(y)
 ww1 = np.pi * max_num[0] / (128 * T)
 ww2 = np.pi * max_num[1] / (128 * T)
 
+print(ww1, ww2)
+
 bartletta_window = np.zeros(len(r))
 ht = np.arange(0, len(r), 1)
 for i in range(len(ht)):
@@ -125,3 +125,5 @@ plt.show()
 max_num = Search(y1)
 ww1_1 = np.pi * max_num[0] / (128 * T)
 ww2_2 = np.pi * max_num[1] / (128 * T)
+
+print(ww1_1, ww2_2)
