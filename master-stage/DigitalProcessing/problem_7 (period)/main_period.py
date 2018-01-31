@@ -35,7 +35,6 @@ plt.title('Наложение шума на чистую последовате�
 plt.savefig('ugly.png')
 plt.show()
 
-exit()
 
 #section 2
 
@@ -52,17 +51,22 @@ for i in range(L):
   x1[1, i] = x[i + 64]
   x1[2, i] = x[i + 128]
 
-plt.plot(teta, x)
-plt.show()
-
 plt.plot(teta1, x1[0, :])
+plt.title('Первый сегмент')
+plt.savefig('first_seg.png')
 plt.show()
 
 plt.plot(teta1, x1[1, :])
+plt.title('Второй сегмент')
+plt.savefig('second_seg.png')
 plt.show()
 
 plt.plot(teta1, x1[2, :])
+plt.title('Третий сегмент')
+plt.savefig('third_seg.png')
 plt.show()
+
+#section 3
 
 w = np.zeros(L)
 for i in range(L):
@@ -72,7 +76,9 @@ for i in range(L):
     else:
         w[i] = 2 - (2 * teta[i]) / (L - 1)
 
-plt.plot(teta1, w);
+plt.plot(teta1, w)
+plt.title('Окно Бартлетта')
+plt.savefig('bart_window.png')
 plt.show()
 
 
@@ -87,12 +93,18 @@ for i in range(V):
   S[i, :] = np.fft.fft(y[i, :])
 
 plt.plot(teta1, S[0,:])
+plt.title('Спектральная характеристика (сег 1)')
+plt.savefig('spec_1.png')
 plt.show()
 
 plt.plot(teta1, S[1,:])
+plt.title('Спектральная характеристика (сег 2)')
+plt.savefig('spec_2.png')
 plt.show()
 
 plt.plot(teta1, S[2,:])
+plt.title('Спектральная характеристика (сег 3)')
+plt.savefig('spec_3.png')
 plt.show()
 
 P = np.zeros((V, L))
@@ -101,18 +113,26 @@ for i in range(V):
     P[i, j] = (1 / N) * S[i, j] ** 2;
 
 plt.plot(teta1, P[0,:])
+plt.title('Периодограмма (сег 1)')
+plt.savefig('period_1.png')
 plt.show()
 
 plt.plot(teta1, P[1,:])
+plt.title('Периодограмма (сег 2)')
+plt.savefig('period_2.png')
 plt.show()
 
 plt.plot(teta1, P[2,:])
+plt.title('Периодограмма (сег 3)')
+plt.savefig('period_3.png')
 plt.show()
 
-# ww1 = Search(S[0, :], T, 200)
-# ww2 = Search(S[1, :], T, 95)
-# ww3 = Search(S[2, :], T, 200)
+# section 4
 
-# print(ww1)
-# print(ww2)
-# print(ww3)
+ww1 = Search(S[0, :], T, 200)
+ww2 = Search(S[1, :], T, 95)
+ww3 = Search(S[2, :], T, 200)
+
+print(ww1)
+print(ww2)
+print(ww3)
