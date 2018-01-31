@@ -10,43 +10,11 @@
 \usepackage[section]{placeins}
 \begin{document}
 
-\title{6. Спектральное оценивание при помощи коррелограммного метода}
+\title{7. Спектральное оценивание при помощи периодограммного метода}
 \author{Андрей Валиков}
 \date{}
 \maketitle
-																																																								\section{Вычисление спектральной плотности для гармонической функции}
-																																																	
-\[N = 2^{11}\]  
-
-Гармоническая функция
-\[y=A\sin(\omega_{1}Tn + \varphi)\]
-	
-
-\begin{lstlisting}
-N = 2 ** 11
-T = 2e-2
-t = np.linspace(0, T, N)
-
-A = 2
-fi = 2.09
-wi = 100
-
-y = A * np.sin(wi * t + fi)
-
-Y = np.fft.fft(y)
-YY = Y * np.conj(Y) / N
-
-plt.plot(t, YY)
-plt.savefig('spectral_density.png')
-plt.show()
-\end{lstlisting}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=1.00]{spectral_density.png}
-\caption{}
-\label{}
-\end{figure}
+																																																							
 
 
 \section{Формирование последовательности}
@@ -56,24 +24,28 @@ plt.show()
 
 
 \begin{lstlisting}
+N = 2 ** 11
+
 teta = np.arange(0, N, 1)
+T = .02
 w1 = 81
 w2 = 14
 b = 5
 
-x = np.sin(w1 * T * teta) + np.cos(w2 * T * teta)
+f = np.sin(w1 * T * teta) + np.cos(w2 * T * teta)
 
-r = b * np.random.rand(N)
+r1 = b * np.random.rand(N)
+r = r1 - np.mean(r1)
 
-y = x + (r - np.mean(r))
+x = f + r;
 
-plt.plot(teta, x)
+plt.plot(teta, f)
 plt.show()
 
 plt.plot(teta, r)
 plt.show()
 
-plt.plot(teta, y)
+plt.plot(teta, x)
 plt.show()
 \end{lstlisting}
 
@@ -100,47 +72,49 @@ plt.show()
 \end{figure}
 
 
-\section{Расчет оценки спектральной плотности коррелограммным методом с прямоугольным окном}
+\section{Разбиение последовательности на сегменты}
 
 
 
 
 \begin{lstlisting}
+D = .5
+L = int(N / 2)
+V = int((N - D * L) / (L - D * L))
+print(V)
 
-#Corell function
-r = np.zeros(int(len(y) / 10 - 1))
-for i in range(len(r)):
-  for j in range(N - i):
-      r[i] += y[j] * y[j + i]
-  r[i] /= len(y) - i
+teta1 = np.arange(0, L, 1)
+x1 = np.zeros((V, L))
 
-#Spectral density
-w = np.linspace(0, np.pi / T, N)
-y = np.zeros(len(w))
-for n in range(len(w)):
-  for m in range(len(r)):
-      y[n] += r[m] * np.cos(w[n] * T * m)
-  y[n] *= 2
+for i in range(L):
+  x1[0, i] = x[i]
+  x1[1, i] = x[i + 64]
+  x1[2, i] = x[i + 128]
 
-
-plt.plot(w, y)
+plt.plot(teta, x)
 plt.show()
 
-plt.plot(w, np.abs(y))
+plt.plot(teta1, x1[0, :])
+plt.show()
+
+plt.plot(teta1, x1[1, :])
+plt.show()
+
+plt.plot(teta1, x1[2, :])
 plt.show()
 \end{lstlisting}
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{sig_spectral_density.png}
+%\includegraphics[scale=1.00]{sig_spectral_density.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{sig_spectral_density_abs.png}
+%\includegraphics[scale=1.00]{sig_spectral_density_abs.png}
 \caption{}
 \label{}
 \end{figure}
@@ -183,21 +157,21 @@ ww2_2 = np.pi * max_num(1) / (128 * T)
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{bartletta_window.png}
+%\includegraphics[scale=1.00]{bartletta_window.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{sig_spectral_density_bart.png}
+%\includegraphics[scale=1.00]{sig_spectral_density_bart.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{sig_spectral_density_bart_abs.png}
+%\includegraphics[scale=1.00]{sig_spectral_density_bart_abs.png}
 \caption{}
 \label{}
 \end{figure}
