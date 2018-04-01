@@ -14,6 +14,7 @@
 \author{Андрей Валиков}
 \date{}
 \maketitle
+
 \section{Математическая модель сигнала}
 Исходный сигнал:
 \begin{gather*}
@@ -45,12 +46,7 @@ ax1.plot(t, func, 'r')
 ax1.set_title('Original')
 \end{lstlisting}
 
-\begin{figure}[htp]
-\centering
-\includegraphics[scale=1.00]{original.png}
-\caption{}
-\label{}
-\end{figure}
+
 
 \section{Амплитудная и фазовая спектральные характеристики полученные с помощью прямого преобразования Фурье.}
 Используется тригонометрическая форма преобразования Фурье:
@@ -80,19 +76,7 @@ ax3.plot(om, np.angle(fou))
 ax3.set_title('Frequencies')
 \end{lstlisting}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=1.00]{amplitudes.png}
-\caption{}
-\label{}
-\end{figure}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=1.00]{frequencies.png}
-\caption{}
-\label{}
-\end{figure}
 
 \section{Восстановление функции с помощью обратного преобразования Фурье}
 
@@ -110,12 +94,6 @@ ax4.plot(t, rst, 'g')
 ax4.set_title('Restored')
 \end{lstlisting}
 
-\begin{figure}[htp]
-\centering
-\includegraphics[scale=1.00]{restored.png}
-\caption{}
-\label{}
-\end{figure}
 
 \section{Вывод}
 Имеется исходный сигнал, экспонента на интервале [0, Tc], нулевое значение на остальных аргументах.\\
