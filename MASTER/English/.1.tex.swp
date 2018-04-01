@@ -10,96 +10,81 @@
 \usepackage[section]{placeins}
 \begin{document}
 
-\title{1. Гармонический анализ непериодических сигналов}
-\author{Андрей Валиков}
+\title{Three important discoveries of biology in recent years}
+\author{Andrew Valikov}
 \date{}
 \maketitle
 
-\section{Математическая модель сигнала}
-Исходный сигнал:
-\begin{gather*}
-x(t) = 
-\begin{cases}
-  Ae^{-t/\tau} \text{ if $0\leq t\leq T_c$}\\
-  0 \text{ else}    
-\end{cases}
-\end{gather*}
+\section{Human genome}
 
-\noindent Константы имеют следующие значения:
-\[A = 2\]
-\[\tau = 0.5\]
-\[T_c = 0.7\]
+\subsection{Brief history}
 
-\begin{lstlisting}
-A, tau = 2, .5
-def _func(arg):
+\subsection{Techniques}
 
-  return A * np.exp(-arg / tau) if 0 <= arg.all() < t[-1] else 0
+\subsection{Applications}
 
-N  = 300
-t  =  np.linspace(0, .7, N)
+\section{CRISPR Cas9}
+Scientists reported selectively altering genes in viable human embryos for the first time this year. For nearly five years, researchers have been wielding the molecular scissors known as CRISPR/Cas9 to make precise changes in animals’ DNA. But its use in human embryos has more profound implications, researchers and ethicists say.
+“We can now literally change our own species,” says Mildred Solomon, a bioethicist and president of the Hastings Center, a bioethics research institute in Garrison, N.Y.
 
-func = _func(t)
+CRISPR/Cas9 is a bacterial immune system (SN: 4/15/17, p. 22) turned into a powerful gene-editing tool. First described in 2012, the editor consists of a DNA-cutting enzyme called Cas9 and a short piece of RNA that guides the enzyme to a specific spot that scientists want to edit. Once the editing machinery reaches its destination, Cas9 cleaves the DNA. Cells can repair the break by gluing the cut ends back together, or by pasting in another piece of DNA. Scientists have developed variations of the editor that make other changes to DNA without cutting, including one version described in October that performs a previously impossible conversion of one DNA base into another.
 
-ax1 = plt.subplot(221)
-ax1.plot(t, func, 'r')
-ax1.set_title('Original')
-\end{lstlisting}
+Whether scientists should use CRISPR/Cas9’s power to create gene-edited babies is a matter of heated debate. Until March, the battles were mostly academic because previous attempts to edit human embryos were done in embryos that would never develop into a baby (SN Online: 4/8/16; SN Online: 4/23/15). But in March, Lichun Tang of China’s Beijing Proteome Research Center and colleagues reported using CRISPR/Cas9 to correct disease-causing mutations in a small number of viable human embryos. Other groups posted separate reports of CRISPR/Cas9 repair in viable human embryos in August and October.
 
 
+EMBRYO, INTERRUPTED A 5-day-old human embryo is usually composed of about 200 cells in a hollow ball configuration called a blastocyst (top). Embryos edited to remove the OCT4 gene (bottom) fail to make normal blastocysts.
+K. NIAKAN/NATURE 2017
+Rather than edit out problems, a different group led by developmental biologist Kathy Niakan of the Francis Crick Institute in London snipped DNA with CRISPR/Cas9 to intentionally create mutations in human embryos for the first time. Those embryos were used to study the role of a gene important in development (SN: 10/14/17, p. 8).
+Together, the studies illustrate that the gene-editing technology can make a variety of changes in human DNA that would last a lifetime and stretch across generations. It’s the relative ease and permanence that have many people worried that CRISPR/Cas9 could lead to new classes of genetically enhanced people and discrimination against others born with uncorrected genetic diseases. Taken to extremes, that discrimination could extend to people whose parents chose not to (or didn’t have the means to) genetically alter their children’s athletic power, intellectual ability or other characteristics.
 
-\section{Амплитудная и фазовая спектральные характеристики полученные с помощью прямого преобразования Фурье.}
-Используется тригонометрическая форма преобразования Фурье:
+In February, a panel of ethicists and other experts convened by the U.S. National Academies of Sciences, Engineering and Medicine warned against using CRISPR to enhance health or other traits. But the panel said using human gene editing to correct diseases, in certain circumstances, could be permissible (SN: 3/18/17, p. 7).
 
-\[\hat{f}(\omega) = \int_{-\infty}^{\infty}x(t)\cos(\omega t)dt -
- i\int_{-\infty}^{\infty}x(t)\sin(\omega t)dt\]
- 
-\noindent Модуль полученной спектральной характеристики будет составлять амплитудную характеристику сигнала:
-\[A(\omega) = |\hat{f}|\]
-А аргумент фазовую:
-\[\Phi(\omega) = \arg \hat{f}\]
+No babies have been born with changes made by CRISPR/Cas9 or any other gene-editing technology. But it could be only a matter of time. “I would not be surprised if there were a CRISPR-modified baby somewhere in the world in the next couple of years,” said CRISPR pioneer Jennifer Doudna of the University of California, Berkeley on October 26 in San Francisco at the World Conference of Science Journalists. Doudna said she does not support using CRISPR/Cas9 to make gene-edited babies.
 
-\begin{lstlisting}
-fou = []
-om  = np.linspace(0, 2000, N)
-for i in range(N):
-  re = np.trapz(func * np.cos(t * om[i]), x=t)
-  im = np.trapz(func * np.sin(t * om[i]), x=t)
-  fou.append(re - im * 1j)
-
-ax2 = plt.subplot(223)
-ax2.plot(om, np.abs(fou))
-ax2.set_title('Amplitudes')
-
-ax3 = plt.subplot(224)
-ax3.plot(om, np.angle(fou))
-ax3.set_title('Frequencies')
-\end{lstlisting}
+Genetic rewrite
+Base editors fuse enzymes that can alter the chemical structure of DNA bases to a “dead” version of CRISPR/Cas9 that doesn’t cut DNA. The first base editors developed in 2016 use cytidine deaminase to change C-G base pairs to T-A pairs (top). A new base editor (bottom) uses DNA adenine deaminase to make the opposite change, transforming A-T base pairs to G-C pairs.
 
 
+E. OTWELL
+The study soon came under criticism from other researchers. “The evidence for fixing is not there,” says Dieter Egli, a developmental biologist at Columbia University. Mitalipov and colleagues have not presented enough data to support their interpretation, he says. Egli and colleagues posted their criticism online August 28 at bioRxiv.org. “The conclusion that the correction occurred is, at best, premature,” Egli says. “At worst, it might be false.”
 
-\section{Восстановление функции с помощью обратного преобразования Фурье}
+Mitalipov and Oregon colleague Paula Amato say they have submitted more evidence to support their claim to Nature and hope to publish the data soon. The finding needs to be replicated by other groups, Amato says, but “at the moment, we stand by our conclusions.”
 
-\[f(t) = \frac{1}{\pi} \int_{0}^{\infty}(\operatorname{Re}(\hat{f})\cos(\omega t) - \operatorname{Im}(\hat{f})\sin(\omega t))d\omega \]
-
-\begin{lstlisting}
-rst  = []
-for i in range(N):
-  a = np.trapz(np.real(fou) * np.cos(om * t[i]), x = om)
-  b = np.trapz(np.imag(fou) * np.sin(om * t[i]), x = om)
-  rst.append((a - b) / np.pi)
-
-ax4 = plt.subplot(222)
-ax4.plot(t, rst, 'g')
-ax4.set_title('Restored')
-\end{lstlisting}
+It may also be possible to fix genetic mutations without any cutting. By dulling Cas9’s blades, researchers led by David Liu of Harvard University have developed “base editors.” The enzyme can grasp DNA but not slice through it. The researchers attached other enzymes that chemically change one DNA base into another. DNA bases are the information-carrying part of the DNA molecule and are often represented by A, C, T and G. In 2016, Liu described a base editor that transforms a C into a T.
 
 
-\section{Вывод}
-Имеется исходный сигнал, экспонента на интервале [0, Tc], нулевое значение на остальных аргументах.\\
-С помощью прямого преобразования Фурье получается Фурье образ, комплексный ряд.\\
-По известным формулам получен амплитудный спектр (модуль). И фазовую (аргумент)\\
-Обратное преобразование Фурье позволяет восстановить исходную сигнал.
+But before any type of human embryo editing can be used in the clinic, it must be as safe and effective as existing embryo screening methods. Today, doctors working with embryos created through in vitro fertilization can extract a few cells for genetic testing in a process called preimplantation genetic diagnosis, or PGD. Embryos that don’t have mutations can be transferred to a woman’s uterus to establish a pregnancy. In some rare cases, couples may not produce any healthy embryos. Future gene editing might help these couples have a healthy biological child. For other couples, gene editing could increase the number of healthy embryos available by fixing some that would otherwise be thrown away, Amato says. “If it’s shown to be just as safe and effective as PGD, I’d say, ‘Why not use it?’ ”
 
+\section{Limbs controled by brain}
+Scientists reported selectively altering genes in viable human embryos for the first time this year. For nearly five years, researchers have been wielding the molecular scissors known as CRISPR/Cas9 to make precise changes in animals’ DNA. But its use in human embryos has more profound implications, researchers and ethicists say.
+“We can now literally change our own species,” says Mildred Solomon, a bioethicist and president of the Hastings Center, a bioethics research institute in Garrison, N.Y.
+
+CRISPR/Cas9 is a bacterial immune system (SN: 4/15/17, p. 22) turned into a powerful gene-editing tool. First described in 2012, the editor consists of a DNA-cutting enzyme called Cas9 and a short piece of RNA that guides the enzyme to a specific spot that scientists want to edit. Once the editing machinery reaches its destination, Cas9 cleaves the DNA. Cells can repair the break by gluing the cut ends back together, or by pasting in another piece of DNA. Scientists have developed variations of the editor that make other changes to DNA without cutting, including one version described in October that performs a previously impossible conversion of one DNA base into another.
+
+Whether scientists should use CRISPR/Cas9’s power to create gene-edited babies is a matter of heated debate. Until March, the battles were mostly academic because previous attempts to edit human embryos were done in embryos that would never develop into a baby (SN Online: 4/8/16; SN Online: 4/23/15). But in March, Lichun Tang of China’s Beijing Proteome Research Center and colleagues reported using CRISPR/Cas9 to correct disease-causing mutations in a small number of viable human embryos. Other groups posted separate reports of CRISPR/Cas9 repair in viable human embryos in August and October.
+
+
+EMBRYO, INTERRUPTED A 5-day-old human embryo is usually composed of about 200 cells in a hollow ball configuration called a blastocyst (top). Embryos edited to remove the OCT4 gene (bottom) fail to make normal blastocysts.
+K. NIAKAN/NATURE 2017
+Rather than edit out problems, a different group led by developmental biologist Kathy Niakan of the Francis Crick Institute in London snipped DNA with CRISPR/Cas9 to intentionally create mutations in human embryos for the first time. Those embryos were used to study the role of a gene important in development (SN: 10/14/17, p. 8).
+Together, the studies illustrate that the gene-editing technology can make a variety of changes in human DNA that would last a lifetime and stretch across generations. It’s the relative ease and permanence that have many people worried that CRISPR/Cas9 could lead to new classes of genetically enhanced people and discrimination against others born with uncorrected genetic diseases. Taken to extremes, that discrimination could extend to people whose parents chose not to (or didn’t have the means to) genetically alter their children’s athletic power, intellectual ability or other characteristics.
+
+In February, a panel of ethicists and other experts convened by the U.S. National Academies of Sciences, Engineering and Medicine warned against using CRISPR to enhance health or other traits. But the panel said using human gene editing to correct diseases, in certain circumstances, could be permissible (SN: 3/18/17, p. 7).
+
+No babies have been born with changes made by CRISPR/Cas9 or any other gene-editing technology. But it could be only a matter of time. “I would not be surprised if there were a CRISPR-modified baby somewhere in the world in the next couple of years,” said CRISPR pioneer Jennifer Doudna of the University of California, Berkeley on October 26 in San Francisco at the World Conference of Science Journalists. Doudna said she does not support using CRISPR/Cas9 to make gene-edited babies.
+
+Genetic rewrite
+Base editors fuse enzymes that can alter the chemical structure of DNA bases to a “dead” version of CRISPR/Cas9 that doesn’t cut DNA. The first base editors developed in 2016 use cytidine deaminase to change C-G base pairs to T-A pairs (top). A new base editor (bottom) uses DNA adenine deaminase to make the opposite change, transforming A-T base pairs to G-C pairs.
+
+
+E. OTWELL
+The study soon came under criticism from other researchers. “The evidence for fixing is not there,” says Dieter Egli, a developmental biologist at Columbia University. Mitalipov and colleagues have not presented enough data to support their interpretation, he says. Egli and colleagues posted their criticism online August 28 at bioRxiv.org. “The conclusion that the correction occurred is, at best, premature,” Egli says. “At worst, it might be false.”
+
+Mitalipov and Oregon colleague Paula Amato say they have submitted more evidence to support their claim to Nature and hope to publish the data soon. The finding needs to be replicated by other groups, Amato says, but “at the moment, we stand by our conclusions.”
+
+It may also be possible to fix genetic mutations without any cutting. By dulling Cas9’s blades, researchers led by David Liu of Harvard University have developed “base editors.” The enzyme can grasp DNA but not slice through it. The researchers attached other enzymes that chemically change one DNA base into another. DNA bases are the information-carrying part of the DNA molecule and are often represented by A, C, T and G. In 2016, Liu described a base editor that transforms a C into a T.
+
+
+But before any type of human embryo editing can be used in the clinic, it must be as safe and effective as existing embryo screening methods. Today, doctors working with embryos created through in vitro fertilization can extract a few cells for genetic testing in a process called preimplantation genetic diagnosis, or PGD. Embryos that don’t have mutations can be transferred to a woman’s uterus to establish a pregnancy. In some rare cases, couples may not produce any healthy embryos. Future gene editing might help these couples have a healthy biological child. For other couples, gene editing could increase the number of healthy embryos available by fixing some that would otherwise be thrown away, Amato says. “If it’s shown to be just as safe and effective as PGD, I’d say, ‘Why not use it?’ ”
 
 \end{document}
