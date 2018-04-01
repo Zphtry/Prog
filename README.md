@@ -1,2 +1,0 @@
-# Old-School
-University problems
