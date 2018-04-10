@@ -17,26 +17,25 @@ void setup() {
   delay(2000);
 
   Serial.write("Sender: ");
-  while (sender.available() > 0) {
-    Serial.write(sender.read());
-  }
+  Serial.write(sender.read());
+ // while (sender.available() > 0) {
+  //}
 
   Serial.write("Reciever: ");
-  while (reciever.available() > 0) {
-    Serial.write(reciever.read());
-  }
+  Serial.write(reciever.read());
+  //while (reciever.available() > 0) {
+  //}
 
   Serial.println("");
 
 
-  reciever.write("AT+RX");
-
-  delay(1000);
-  Serial.write("Reciever: ");
-  while (reciever.available() > 0) {
-    Serial.write(reciever.read());
-  }
-
+  //reciever.write("AT+RX");
+//
+  //delay(1000);
+  //Serial.write("Reciever: ");
+  //while (reciever.available() > 0) {
+  //  Serial.write(reciever.read());
+  //}
 
 
 
