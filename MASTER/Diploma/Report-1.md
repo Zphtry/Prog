@@ -218,11 +218,6 @@
 
 ## Рекомендации
 
- 1. If the distance between two modules is very close (less than 0.5m), it would be better that the
-transmitting power of two modules are set to be low, e.g. P1～P3. Otherwise, receiving will be
-saturated and communication between modules will fail. If the distance is only several centimeters,
-communication cannot be 
-
 1. Если расстояние между модулями слишком маленькое (меньше 50 см), стоит установить мощность передачи небольшой (P1 - P3). Иначе, передача будет перенасыщена и соединение не удастся. Если расстояние составляет несколько сантиметров, передача, вероятно, не получится.
 
 ## Режим беспроводного IO
