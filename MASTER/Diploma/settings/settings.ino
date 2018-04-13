@@ -1,21 +1,28 @@
 
 #include <SoftwareSerial.h>
-SoftwareSerial sender(6, 7);
-// SoftwareSerial reciever(10, 11);
+SoftwareSerial sender(8, 9);
 
 
 void setup() {
   Serial.begin(9600);
   sender.begin(9600);
-  pinMode(D1, INPUT_PILLDOWN);
+  pinMode(7, OUTPUT); 
+//  reciever.begin(9600);
+
 }
 
 
 void loop() {
-  sender.write("test");
+    digitalWrite(7, HIGH);
+  
+    sender.write("AT");
 
-  delay(2000);
-  Serial.write(sender.read());
+    while (sender.available() > 0) {
+      Serial.write(sender.read());
+    }
+
+  delay(500);
+
 }
 
 
