@@ -28,7 +28,7 @@ void loop() {
   else
 
   if (command == "config=false") {
-    disable_config();
+    disableConfig();
   }
 
   else {
@@ -47,10 +47,12 @@ void loop() {
 
 void enableConfig() {
   digitalWrite(setPin, LOW);
+  Serial.println("Config enabled");
 }
 
-void disable_config() {
+void disableConfig() {
   digitalWrite(setPin, HIGH);
+  Serial.println("Config disabled");
 }
 
 
@@ -66,13 +68,13 @@ String readSerial() {
 }
 
 String readSender() {
-  String command = "";
+  String info = "";
 
   while (sender.available() > 0) {
-    command += char(sender.read());
+    info += char(sender.read());
   }
 
-  return command;
+  return info;
 }
 
 
