@@ -1,6 +1,6 @@
 
 #include <SoftwareSerial.h>
-SoftwareSerial sender(8, 9);
+SoftwareSerial sender(6, 5);
 int setPin = 7;
 
 String command = "";
@@ -21,24 +21,27 @@ void loop() {
 
   command = readSerial();
 
-  if (command == "config=true") {
-    enableConfig();
-  }
+  if (command.length() > 0) {
+    if (command == "config=true") {
+      enableConfig();
+    }
 
-  else
+    else
 
-  if (command == "config=false") {
-    disableConfig();
-  }
+    if (command == "config=false") {
+      disableConfig();
+    }
 
-  else {
-    sender.print(command);
+    else {
+      sender.print(command);
+      Serial.println("На модуль отправлено: " + command);
+    }
   }
 
 
 
   Serial.print(readSender());
-
+  Serial.print(sender.read());
 
   delay(500);
 

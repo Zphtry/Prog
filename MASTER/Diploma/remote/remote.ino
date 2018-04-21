@@ -2,8 +2,8 @@
 #include <SoftwareSerial.h>
 // SoftwareSerial reciever(10, 11);
 
-int setPin = 3;
-SoftwareSerial sender(4, 5);
+int setPin = 7;
+SoftwareSerial sender(5, 6);
 
 
 void setup() {
