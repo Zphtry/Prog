@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\begin{document}
+
+\begin{tabular}{ l l | l l | }
+  \multicolumn{2}{c|}{Page 1} & \multicolumn{2}{c|}{Page 2} \\
+  embarking & начинать, встпуать в дело & 6 & 4\\
+  mere & простой, всего лишь & 9 & 4 \\
+  handful & горстка & 9 & 4 \\
+  matter & материя & 9 & 4 \\
+  perceive & воспринимать & 9 & 4 \\
+  further still & ещё дальше & 9 & 4 \\
+  to coin & придумывать & 9 & 4 \\
+  to encompass & охватывать & 9 & 4 \\
+  to lay out & выкладывать & 9 & 4 \\
+  to be concerned & быть связанным с & 9 & 4 \\
+  fidelity & схожесть & 9 & 4 \\
+  given what & учитывая & 9 & 4 \\ \cline{1-2}
+
+  \multicolumn{2}{c|}{Page 2} \\
+  mental faculties & умственные способности & 9 & 4 \\
+  disparage & принижать & 9 & 4 \\
+  interrogator & опрашивающий & 9 & 4 \\
+  rigorously & сторого & 9 & 4 \\
+  possess & обладать & 9 & 4 \\ \cline{1-2}
+
+  \multicolumn{2}{c|}{Page 3} \\
+  deliberately & сознательно & 9 & 4 \\
+  to deserve credit & заслуживать доверие & 9 & 4 \\
+  devote & уделять внимание & 9 & 4 \\
+  wind tunnels & аэродинамическая труба & 9 & 4 \\
+  pigeons & голубь & 9 & 4 \\
+  once & как только & 9 & 4 \\
+  to be content & быть довольным & 9 & 4 \\
+  fascinating & очаровательное & 9 & 4 \\
+  worthy & достойный & 9 & 4 \\
+  occasionally & иногда & 9 & 4 \\
+
+\end{tabular}
+
+
+
+\end{document}
