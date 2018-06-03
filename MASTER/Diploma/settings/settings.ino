@@ -1,7 +1,7 @@
 
 #include <SoftwareSerial.h>
-SoftwareSerial sender(6, 5);
-int setPin = 7;
+SoftwareSerial radio(3, 4);
+int setPin = 2;
 
 String command = "";
 
@@ -9,10 +9,12 @@ String command = "";
 void setup() {
 
   Serial.begin(9600);
-  sender.begin(9600);
+  radio.begin(9600);
 
   pinMode(setPin, OUTPUT);
   digitalWrite(setPin, HIGH);
+
+  getConfigStatus();
 }
 
 
@@ -22,26 +24,25 @@ void loop() {
   command = readSerial();
 
   if (command.length() > 0) {
-    if (command == "config=true") {
+    if (command == "config.enable") {
       enableConfig();
     }
 
-    else
-
-    if (command == "config=false") {
+    else if (command == "config.disable") {
       disableConfig();
     }
 
+    else if (command == "config.status") {
+      getConfigStatus();
+    }
+
     else {
-      sender.print(command);
-      Serial.println("На модуль отправлено: " + command);
+      radio.print(command);
+      Serial.println("MESSAGE: " + command);
     }
   }
 
-
-
-  Serial.print(readSender());
-  Serial.print(sender.read());
+  readRadio();
 
   delay(500);
 
@@ -58,6 +59,14 @@ void disableConfig() {
   Serial.println("Config disabled");
 }
 
+void getConfigStatus() {
+  if (digitalRead(setPin) == 0) {
+    Serial.println("CONFIG=TRUE");
+  } else {
+    Serial.println("CONFIG=FALSE");
+  }
+}
+
 
 
 String readSerial() {
@@ -70,14 +79,19 @@ String readSerial() {
   return command;
 }
 
-String readSender() {
-  String info = "";
+String readRadio() {
+  String response = "";
 
-  while (sender.available() > 0) {
-    info += char(sender.read());
+  while (radio.available() > 0) {
+    response += char(radio.read());
   }
 
-  return info;
+  if (response.length() > 0) {
+    response = "RESPONSE: " + response;
+    Serial.print(response);
+    return response;
+  }
+
 }
 
 

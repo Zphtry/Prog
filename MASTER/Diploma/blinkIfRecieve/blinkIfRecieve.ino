@@ -14,27 +14,33 @@ void setup() {
   pinMode(setPin, OUTPUT);
   pinMode(lightPin, OUTPUT);
 
-  digitalWrite(setPin, LOW);
-  digitalWrite(lightPin, HIGH);
+  digitalWrite(setPin, HIGH);
+//  digitalWrite(lightPin, HIGH);
 
 }
 
-
+ 
 void loop() {
-  sender.write("AT");
+  sender.write("t");
+  shortBlink();
+//
+   while (Serial.available() > 0) {
+     sender.write(Serial.read());
+     shortBlink();
+   }
 
-  // while (Serial.available() > 0) {
-  //   sender.write(Serial.read());
-  // }
+   while (sender.available() > 0) {
+     Serial.write(sender.read());
+     shortBlink();
+   }
 
-  // while (reciever.available() > 0) {
-  //   Serial.write(reciever.read());
-  // }
+  delay(1000);
+}
 
-  delay(500);
-
-  Serial.write(sender.read());
-
+void shortBlink() {
+  digitalWrite(lightPin, HIGH);
+  delay(50);
+  digitalWrite(lightPin, LOW);
 }
 
 
