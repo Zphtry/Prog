@@ -1,51 +1,55 @@
 import math
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.misc as scipy_misc
 
 fact = math.factorial
 
-# начальные значения и переменные
-l_left, l_right = .01, 1
-delta_l = .05
-M, N, m = 10, 10, .9
+# интенсивность потока поступления нагрузки
+# начальное значение, шаг, конечное значение
+l_left, l_step, l_right = .01, .05, 1
 
-# 1
-X1 = fact(M) / (fact(N) * fact(M - N))
-k = 0
-X = l_left
+# число входов / число выходов / интенсивность ухода нагрузки
+M, N, mu = 10, 10, .9
 
+"""
+Вероятность потерь
+вызовов, производительности, среднего числа соединений 
+от интенсивности нагрузки
+"""
+comb = scipy_misc.comb(M, N)
+
+# параметры коммутатора
+# вероятность потерь вызовов / производительность / среднее число соединений
 P1_k, G1_k, E1_k = [], [], []
 
-while X < l_right:
-    X2 = (X / m) ** N
-    S, Y = 0, 0
-    while Y <= N:
-        Y2 = (X / m) ** Y
-        Y1 = fact(M) / (fact(Y) * fact(M - Y))
-        S += Y1 * Y2
-        Y += 1
-    P1_k.append(X1 * (X2 / S))
-    G1_k.append(X * M * (1 - P1_k[-1]))
-    E1_k.append((X * M / m) * (1 - P1_k[-1]))
+for l in np.arange(l_left, l_right, l_step):
+    l_to_mu_ratio = l / mu
+    part_sum = sum((scipy_misc.comb(M, n) * (l_to_mu_ratio ** n) for n in range(N + 1)))
 
-    XX_k = X
-    X += delta_l
+    P1_k.append(comb * (l_to_mu_ratio ** N / part_sum))
+    G1_k.append(l * M * (1 - P1_k[-1]))
+    E1_k.append((l_to_mu_ratio * M) * (1 - P1_k[-1]))
+
+plt.plot(P1_k)
+plt.show()
+exit()
 
 # 2
 X = l_left
 P2_k, G2_k, E2_k = [], [], []
 
 while X < l_right:
-    X2 = ((X * M / m) ** N) / fact(N)
+    X2 = ((X * M / mu) ** N) / fact(N)
     S, Y = 0, 0
     while Y <= (N + 1):
-        Y2 = ((X * M / m) ** Y) / fact(Y)
+        Y2 = ((X * M / mu) ** Y) / fact(Y)
         S += Y2
         Y += 1
     P2_k.append(X2 / S)
     G2_k.append(X * M * (1 - P2_k[-1]))
-    E2_k.append((X * M / m) * (1 - P2_k[-1]))
-    X += delta_l
-    k += 1
+    E2_k.append((X * M / mu) * (1 - P2_k[-1]))
+    X += l_step
 
 # 3
 P3_k, G3_k, E3_k = [], [], []
@@ -54,12 +58,12 @@ X1 = fact(M) / (fact(N) * fact(M - N))
 X = l_left
 
 while X < l_right:
-    X2 = (X / (m + X)) ** N
-    Y2 = (1 - (X / (m + X))) ** (M - N)
+    X2 = (X / (mu + X)) ** N
+    Y2 = (1 - (X / (mu + X))) ** (M - N)
     P3_k.append(X1 * X2 * Y2)
     G3_k.append(X * M * (1 - P3_k[-1]))
-    E3_k.append((X * M / m) * (1 - P3_k[-1]))
-    X += delta_l
+    E3_k.append((X * M / mu) * (1 - P3_k[-1]))
+    X += l_step
 
 # ylabel('Вероятность потерь вызовов');
 # xlabel('Lambda');
