@@ -17,46 +17,60 @@
 \date{}
 \maketitle
 
-\section{Параметры системы}
-\begin{tabular}{l l }
-	$M$ & входы коммутатора \\
-	$N$ & выходы коммутатора
+\section{Параметры системы}\label{sec:systemParams}
+
+\begin{tabular}{l l}
+    $M$ & входы коммутатора \\
+    $N$ & выходы коммутатора \\
+    $\lambda$ & поступление нагрузки на одном входе \\
+    $\mu$ & уход нагрузки с одного выхода \\
+    $P$ & вероятность потерь вызовов \\
+    $G$ & производительность \\
+    $E$ & среднее число соединений \\
 \end{tabular}
 																																																							
 
-\section{Вероятность блокировки для трёх распредлений}
+\section{Вероятность блокировки для трёх распредлений}\label{sec:prob}
 
-\subsection{Распределение Энгсета}
+\subsection{Распределение Энгсета}\label{subsec:engset}
+
+ \[
+     p = \frac{\left(\frac{\lambda}{\mu}\right) ^ N \binom{M}{N}}
+     {\sum_{n=0}^{N} \left(\frac{\lambda}{\mu}\right) ^ n \binom{M}{n}}
+ \]
+
+\subsection{Распределение Эрланга}\label{subsec:erlang}
+
+\[
+
+\]
 
 
-\[p_n = \frac{\left(\frac{l}{m}\right) ^ N \binom{M}{N}}{\sum_{n=0}^{N} \left(\frac{l}{m}\right) ^ n \binom{M}{n}} \]
-
-
-\begin{lstlisting}
-N = 2 ** 11
-
-teta = np.arange(0, N, 1)
-T = .02
-w1 = 81
-w2 = 14
-b = 5
-
-f = np.sin(w1 * T * teta) + np.cos(w2 * T * teta)
-
-r1 = b * np.random.rand(N)
-r = r1 - np.mean(r1)
-
-x = f + r;
-
-plt.plot(teta, f)
-plt.show()
-
-plt.plot(teta, r)
-plt.show()
-
-plt.plot(teta, x)
-plt.show()
-\end{lstlisting}
+%\begin{lstlisting}
+%N = 2 ** 11
+%
+%teta = np.arange(0, N, 1)
+%T = .02
+%w1 = 81
+%w2 = 14
+%b = 5
+%
+%f = np.sin(w1 * T * teta) + np.cos(w2 * T * teta)
+%
+%r1 = b * np.random.rand(N)
+%r = r1 - np.mean(r1)
+%
+%x = f + r;
+%
+%plt.plot(teta, f)
+%plt.show()
+%
+%plt.plot(teta, r)
+%plt.show()
+%
+%plt.plot(teta, x)
+%plt.show()
+%\end{lstlisting}
 
 
 
