@@ -5,17 +5,23 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[margin=.7in]{geometry}
-\usepackage{geometry}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{listings}
 \usepackage[section]{placeins}
 \usepackage[T1]{fontenc}
 \begin{document}
 
-\title{Отчёт о телетрафике. //TODO поменять название}
+%TODO поменять название
+\title{Отчёт о телетрафике.}
 \author{Андрей Валиков}
 \date{}
 \maketitle
+
+\section{Параметры системы}
+\begin{tabular}{l l }
+	$M$ & входы коммутатора \\
+	$N$ & выходы коммутатора
+\end{tabular}
 																																																							
 
 \section{Вероятность блокировки для трёх распредлений}
@@ -23,8 +29,7 @@
 \subsection{Распределение Энгсета}
 
 
-\[p_n = \frac{\left(\frac{l}{m}\right) ^ N \binom{M}{N}}
-{\sum_{n=0}^{N} \left(\frac{l}{m}\right) ^ n \binom{M}{n}} \]
+\[p_n = \frac{\left(\frac{l}{m}\right) ^ N \binom{M}{N}}{\sum_{n=0}^{N} \left(\frac{l}{m}\right) ^ n \binom{M}{n}} \]
 
 
 \begin{lstlisting}
