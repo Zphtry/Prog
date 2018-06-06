@@ -2,7 +2,6 @@
 Вероятность потерь вызовов, производительность, среднее число соединений
 от интенсивности нагрузки
 """
-
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,7 +11,7 @@ fact = math.factorial
 
 # поступление нагрузки
 # начальное значение, шаг, конечное значение
-l_left, l_step, l_right = .01, .05, 1
+l_range = np.arange(.01, 1, .05)
 
 # уход нагрузки
 mu = .9
@@ -54,7 +53,16 @@ def cons(lam, p):
     return perf(lam, p) / mu
 
 
-for l in np.arange(l_left, l_right, l_step):
+def common_plot(**kwargs):
+    plt.title(kwargs['title'])
+    plt.plot(l_range, kwargs['engset'], label='Энгсет')
+    plt.plot(l_range, kwargs['erlang'], label='Эрланг')
+    plt.plot(l_range, kwargs['binom'], label='Биноминальное распределение')
+    plt.legend()
+    plt.show()
+
+
+for l in l_range:
 
     P1_k.append(p_engset(l))
     G1_k.append(perf(l, P1_k[-1]))
@@ -68,26 +76,6 @@ for l in np.arange(l_left, l_right, l_step):
     G3_k.append(perf(l, P3_k[-1]))
     E3_k.append(cons(l, P3_k[-1]))
 
-# ylabel('Вероятность потерь вызовов');
-# xlabel('Lambda');
-# legend('Эрланг', 'Энгсет', 'Биноминальное распределение')
-plt.plot(P1_k)
-plt.plot(P2_k)
-plt.plot(P3_k)
-plt.show()
-
-# ylabel('Производительность');
-# xlabel('Lambda');
-# legend('Эрланг', 'Энгсет', 'Биноминальное распределение')
-plt.plot(G1_k)
-plt.plot(G2_k)
-plt.plot(G3_k)
-plt.show()
-
-# ylabel('Среднее число соединений');
-# xlabel('Lambda');
-# legend('Эрланг', 'Энгсет', 'Биноминальное распределение')
-plt.plot(E1_k)
-plt.plot(E2_k)
-plt.plot(E3_k)
-plt.show()
+common_plot(title='Вероятность потерь вызовов', engset=P1_k, erlang=P2_k, binom=P3_k)
+common_plot(title='Производительность',         engset=G1_k, erlang=G2_k, binom=G3_k)
+common_plot(title='Среднее число соединений',   engset=E1_k, erlang=E2_k, binom=E3_k)
