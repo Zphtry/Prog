@@ -17,7 +17,7 @@ l_range = np.arange(.01, 1, .05)
 mu = .9
 
 # число входов / число выходов / интенсивность ухода нагрузки
-M, N = 10, 10
+M, N = 20, 10
 
 comb = scipy_misc.comb(M, N)
 
@@ -30,11 +30,11 @@ P3_k, G3_k, E3_k = [], [], []
 
 def p_engset(lam):
     _sum = sum((scipy_misc.comb(M, n) * ((lam / mu) ** n) for n in range(N + 1)))
-    return comb * ((lam / mu) ** N / _sum)
+    return comb * (((lam / mu) ** N) / _sum)
 
 
 def p_erlang(lam):
-    _sum = sum(((M * lam / mu) ** n) / fact(n) for n in range(N))
+    _sum = sum(((M * lam / mu) ** n) / fact(n) for n in range(N + 2))
     return (M * lam / mu) ** N / fact(N) / _sum
 
 
@@ -54,7 +54,7 @@ def cons(lam, p):
 
 
 def common_plot(**kwargs):
-    plt.title(kwargs['title'])
+    plt.title((kwargs['title'] + ' M={}, N={}, mu={}').format(M, N, mu))
     plt.plot(l_range, kwargs['engset'], label='Энгсет')
     plt.plot(l_range, kwargs['erlang'], label='Эрланг')
     plt.plot(l_range, kwargs['binom'], label='Биноминальное распределение')
@@ -63,7 +63,6 @@ def common_plot(**kwargs):
 
 
 for l in l_range:
-
     P1_k.append(p_engset(l))
     G1_k.append(perf(l, P1_k[-1]))
     E1_k.append(cons(l, P1_k[-1]))
