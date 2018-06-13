@@ -16,6 +16,18 @@
 \date{}
 \maketitle
 
+\section{Цель работы}
+Оценить следующие характеристики коммутаторов: вероятность потерь вызова, производительность, среднее число соединений. Лабораторная работа выполнена на языке Python 3.6 с использованием библиотек Matplolib и SciPy и представляет собой модели, позволяющие исследовать характеристики однозвенных коммутаторов при различных параметрах.
+
+\section{Общая модель коммутатора}
+Коммутатор в данной работе представляет собой модель, имеющую $M$ входов и $N$ выходов.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=1.00]{comm_model.png}
+\end{figure}
+
+
 \section{Параметры системы}\label{sec:systemParams}
 
 \begin{tabular}{l l}
@@ -134,26 +146,76 @@ common_plot(title='Average connexitions number',   engset=E1_k, erlang=E2_k, bin
 
 \section{Результат}
 
-\begin{figure}[htp]
+\subsection{$M = N$}
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{loss_prob_M20_N10_mu09.png}
+\includegraphics[scale=1.00]{loss_prob_M10_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
-\begin{figure}[htp]
+\begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{perf_M20_N10_mu09.png}
+\includegraphics[scale=1.00]{perf_M10_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
-\begin{figure}[htp]
+\begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{aver_conn_M20_N10_mu09.png}
+\includegraphics[scale=1.00]{aver_conn_M10_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
+
+\subsection{$M ≫ N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{loss_prob_M50_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{perf_M50_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{aver_conn_M50_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\section{Вывод}
+При исследовании зависимости параметров коммутационной системы от интенсивности поступления нагрузки были получены следующие выводы:
+\begin{itemize}
+	\item При $M = N$:
+	\begin{itemize}
+		\item Наименьшая вероятность потерь вызовов с вероятностью поступления вызовов по распределению Эрланга или Биномиальному распределению
+		\item Чем выше коэффициент интенсивности ухода потока нагрузки, тем лучше результат.
+	\end{itemize}
+	\item При $ M ≫ N$
+		\begin{itemize}
+			\item Наибольшая производительность системы
+			\item Наиболее эффективный результат дает распределение Энгсета и Биномиальное распределение, $\mu$ при этом не имеет существенного влияния.
+			\item Среднее число соединений в  системе также имеет наибольшее значение при наименьшем значении $\mu$, с подчинением закону распределения Энгсета и Биномиальному
+		\end{itemize}
+\end{itemize}
+
+Параметры коммутатора во многом зависят от:
+\begin{itemize}
+	\item Закона распределения вероятностей поступающих заявок в систему
+	\item $\lambda$
+	\item $\mu$
+	\item $\rho = \frac{\lambda}{\mu}$
+	\item нормированной интенсивности поступления нагрузки
+\end{itemize}
+Для каждого конкретного случая необходимо учитывать все эти характеристики в совокупности для получения требуемых параметров системы.
 
 
 
