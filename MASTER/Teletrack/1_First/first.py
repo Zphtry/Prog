@@ -35,7 +35,7 @@ def p_engset(lam):
 
 def p_erlang(lam):
     _sum = sum(((M * lam / mu) ** n) / fact(n) for n in range(N + 2))
-    return (M * lam / mu) ** N / fact(N) / _sum
+    return (M * lam / mu) ** N / (fact(N) * _sum)
 
 
 def p_binom(lam):
@@ -54,12 +54,16 @@ def cons(lam, p):
 
 
 def common_plot(**kwargs):
-    plt.title((kwargs['title'] + ' M={}, N={}, mu={}').format(M, N, mu))
+    title = (kwargs['title'] + ' M={}, N={}, mu={}').format(M, N, mu)
+    file_title = (kwargs['title_eng'] + '_M{}_N{}_mu{}').format(M, N, mu)
+    plt.title(title)
     plt.plot(l_range, kwargs['engset'], label='Энгсет')
     plt.plot(l_range, kwargs['erlang'], label='Эрланг')
     plt.plot(l_range, kwargs['binom'], label='Биноминальное распределение')
     plt.legend()
+    plt.savefig(file_title.replace('.', '') + '.png')
     plt.show()
+
 
 
 for l in l_range:
@@ -75,6 +79,6 @@ for l in l_range:
     G3_k.append(perf(l, P3_k[-1]))
     E3_k.append(cons(l, P3_k[-1]))
 
-common_plot(title='Вероятность потерь вызовов', engset=P1_k, erlang=P2_k, binom=P3_k)
-common_plot(title='Производительность',         engset=G1_k, erlang=G2_k, binom=G3_k)
-common_plot(title='Среднее число соединений',   engset=E1_k, erlang=E2_k, binom=E3_k)
+common_plot(title='Вероятность потерь вызовов', title_eng='loss_prob',engset=P1_k, erlang=P2_k, binom=P3_k)
+common_plot(title='Производительность', title_eng='perf', engset=G1_k, erlang=G2_k, binom=G3_k)
+common_plot(title='Среднее число соединений', title_eng='aver_conn', engset=E1_k, erlang=E2_k, binom=E3_k)
