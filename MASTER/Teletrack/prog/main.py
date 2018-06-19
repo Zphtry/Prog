@@ -6,10 +6,10 @@ from mode_of_work import Mode
 fact = math.factorial
 
 """Режим работы (какой параметр будет меняться)"""
-mode = Mode.on_lambda
+mode = Mode.on_k
 
 # поступление нагрузки / уход нагрузки
-lam, mu = .9, .9
+lam, mu = .1, .9
 
 # число входов / число выходов
 M, N = 10, 10
@@ -17,8 +17,10 @@ M, N = 10, 10
 # один из четырёх параметров, который будет меняться
 _range = np.arange(.01, 1, .05)
 
+if mode == Mode.on_rho:
+    _range = np.arange(.01, 3, .05)
 
-if mode == Mode.on_k:
+elif mode == Mode.on_k:
     _range = np.arange(1, 20)
 
 queueing = Queueing(lam, mu, M, N, _range, mode)

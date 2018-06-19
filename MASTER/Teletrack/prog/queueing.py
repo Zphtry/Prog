@@ -42,26 +42,30 @@ class Queueing:
 
     def common_plot(self, **kwargs):
         title = f"{kwargs['title']} "
+        file_title = f"{kwargs['title_eng']}_"
+
         if self.mode == Mode.on_lambda:
-            title += f'M={self.M} N={self.N} μ={self.mu}'
+            variables = f'M={self.M} N={self.N} μ={self.mu}'
             plt.xlabel('λ')
         elif self.mode == Mode.on_mu:
-            title += f'M={self.M} N={self.N} λ={self.lam}'
+            variables = f'M={self.M} N={self.N} λ={self.lam}'
             plt.xlabel('μ')
         elif self.mode == Mode.on_rho:
-            title += f'M={self.M} N={self.N} λ={self.lam}'
+            variables = f'M={self.M} N={self.N} λ={self.lam}'
             plt.xlabel('ρ')
         elif self.mode == Mode.on_k:
-            title += f'M={self.M} λ={self.lam} μ={self.mu}'
+            variables = f'M={self.M} λ={self.lam} μ={self.mu}'
             plt.xlabel('N')
 
-    # file_title = f"_M{self.M}_N{self.N}_mu{self.mu}"
+        title += variables
+        file_title += variables.replace(' ', '_').replace('=', '').replace('.', '')
+        print(file_title)
 
         plt.title(title)
         plt.plot(self._range, kwargs['engset'], label='Энгсет')
         plt.plot(self._range, kwargs['erlang'], label='Эрланг')
         plt.plot(self._range, kwargs['binom'], label='Биноминальное распределение')
         plt.legend()
-        # plt.savefig(file_title.replace('.', '') + '.png')
+        plt.savefig(file_title.replace('.', '') + '.png')
         plt.show()
 
