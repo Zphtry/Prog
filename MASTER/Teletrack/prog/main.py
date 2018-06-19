@@ -9,10 +9,10 @@ fact = math.factorial
 mode = Mode.on_k
 
 # поступление нагрузки / уход нагрузки
-lam, mu = .1, .9
+lam, mu = .9, .1
 
 # число входов / число выходов
-M, N = 10, 10
+M, N = 50, 10
 
 # один из четырёх параметров, который будет меняться
 _range = np.arange(.01, 1, .05)
@@ -21,7 +21,7 @@ if mode == Mode.on_rho:
     _range = np.arange(.01, 3, .05)
 
 elif mode == Mode.on_k:
-    _range = np.arange(1, 20)
+    _range = np.arange(1, 50)
 
 queueing = Queueing(lam, mu, M, N, _range, mode)
 

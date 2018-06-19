@@ -66,6 +66,6 @@ class Queueing:
         plt.plot(self._range, kwargs['erlang'], label='Эрланг')
         plt.plot(self._range, kwargs['binom'], label='Биноминальное распределение')
         plt.legend()
-        plt.savefig(file_title.replace('.', '') + '.png')
+        plt.savefig(file_title)
         plt.show()
 
