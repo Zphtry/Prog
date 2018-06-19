@@ -9,6 +9,8 @@
 \usepackage{listings}
 \usepackage[section]{placeins}
 \usepackage[T1]{fontenc}
+\usepackage{url}
+\newcommand\purl[1]{\protect\url{#1}} % "protected url"
 \begin{document}
 
 \title{Оценка параметров систем массового обслуживания}
@@ -69,80 +71,152 @@
 
 \section{Код программы}
 
-\begin{lstlisting}
+\subsection{\purl{main.py}}
 
+\begin{lstlisting}
 import math
-import matplotlib.pyplot as plt
 import numpy as np
-import scipy.misc as scipy_misc
+from queueing import Queueing
+from mode_of_work import Mode
 
 fact = math.factorial
 
-l_range = np.arange(.01, 1, .05)
+mode = Mode.on_lambda
 
-mu = .9
+lam, mu = .9, .9
 
-M, N = 20, 10
 
-comb = scipy_misc.comb(M, N)
+M, N = 10, 10
 
+_range = np.arange(.01, 1, .05)
+
+
+if mode == Mode.on_k:
+    _range = np.arange(1, 20)
+
+queueing = Queueing(lam, mu, M, N, _range, mode)
 
 P1_k, G1_k, E1_k = [], [], []
 P2_k, G2_k, E2_k = [], [], []
 P3_k, G3_k, E3_k = [], [], []
 
+for var in _range:
 
-def p_engset(lam):
-    _sum = sum((scipy_misc.comb(M, n) * ((lam / mu) ** n) for n in range(N + 1)))
-    return comb * (((lam / mu) ** N) / _sum)
+    if mode == Mode.on_lambda:
+        queueing.lam, queueing.rho = var, var / mu
+    elif mode == Mode.on_mu:
+        queueing.rho = lam / var
+    elif mode == Mode.on_rho:
+        queueing.rho = var
+    elif mode == Mode.on_k:
+        queueing.N = var
 
+    P1_k.append(queueing.p_engset())
+    G1_k.append(queueing.perf(P1_k[-1]))
+    E1_k.append(queueing.cons(P1_k[-1]))
 
-def p_erlang(lam):
-    _sum = sum(((M * lam / mu) ** n) / fact(n) for n in range(N + 2))
-    return (M * lam / mu) ** N / (fact(N) * _sum)
+    P2_k.append(queueing.p_erlang())
+    G2_k.append(queueing.perf(P2_k[-1]))
+    E2_k.append(queueing.cons(P2_k[-1]))
 
+    P3_k.append(queueing.p_binom())
+    G3_k.append(queueing.perf(P3_k[-1]))
+    E3_k.append(queueing.cons(P3_k[-1]))
 
-def p_binom(lam):
-    alpha = lam / (mu + lam)
-    return comb * (alpha ** N) * (1 - alpha) ** (M - N)
+queueing.common_plot(
+    title='loss_prob', title_eng='loss_prob',
+    engset=P1_k, erlang=P2_k, binom=P3_k)
+queueing.common_plot(
+    title='perf', title_eng='perf',
+    engset=G1_k, erlang=G2_k, binom=G3_k)
+queueing.common_plot(
+    title='aver_conn', title_eng='aver_conn',
+    engset=E1_k, erlang=E2_k, binom=E3_k)
 
-
-def perf(lam, p):
-    """performance"""
-    return lam * M * (1 - p)
-
-
-def cons(lam, p):
-    """connections"""
-    return perf(lam, p) / mu
-
-
-def common_plot(**kwargs):
-    plt.title((kwargs['title'] + ' M={}, N={}, mu={}').format(M, N, mu))
-    plt.plot(l_range, kwargs['engset'], label='Engset')
-    plt.plot(l_range, kwargs['erlang'], label='Erlang')
-    plt.plot(l_range, kwargs['binom'], label='Binom')
-    plt.legend()
-    plt.show()
-
-
-for l in l_range:
-    P1_k.append(p_engset(l))
-    G1_k.append(perf(l, P1_k[-1]))
-    E1_k.append(cons(l, P1_k[-1]))
-
-    P2_k.append(p_erlang(l))
-    G2_k.append(perf(l, P2_k[-1]))
-    E2_k.append(cons(l, P2_k[-1]))
-
-    P3_k.append(p_binom(l))
-    G3_k.append(perf(l, P3_k[-1]))
-    E3_k.append(cons(l, P3_k[-1]))
-
-common_plot(title='Loss probabitlty', engset=P1_k, erlang=P2_k, binom=P3_k)
-common_plot(title='Performance', engset=G1_k, erlang=G2_k, binom=G3_k)
-common_plot(title='Average connections number',   engset=E1_k, erlang=E2_k, binom=E3_k)
 \end{lstlisting}
+
+\subsection{\purl{mode_of_work.py}}
+\begin{lstlisting}
+from enum import Enum
+
+
+class Mode(Enum):
+    on_lambda = 0,
+    on_mu = 1,
+    on_rho = 2,
+    on_k = 3
+\end{lstlisting}
+
+\subsection{\purl{queueing.py}}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import scipy.misc
+import math
+from mode_of_work import Mode
+fact = math.factorial
+comb = scipy.misc.comb
+
+
+class Queueing:
+    def __init__(self, lam, mu, M, N, _range, mode):
+        self.lam, self.mu = lam, mu
+        self.rho = lam / mu
+        self.M, self.N = M, N
+        self._range = _range
+        self.mode = mode
+
+    """Stage 1"""
+    def p_engset(self):
+        """engset loss probability"""
+        _sum = sum((comb(self.M, n) * (self.rho ** n) for n in range(self.N + 1)))
+        return comb(self.M, self.N) * ((self.rho ** self.N) / _sum)
+
+    def p_erlang(self):
+        """erlang loss probability"""
+        _sum = sum(((self.M * self.rho) ** n) / fact(n) for n in range(self.N + 2))
+        return (self.M * self.rho) ** self.N / (fact(self.N) * _sum)
+
+    def p_binom(self):
+        """binom loss probability"""
+        alpha = self.rho / (1 + self.rho)
+        return comb(self.M, self.N) * (alpha ** self.N) * (1 - alpha) ** (self.M - self.N)
+
+    """Stage 2"""
+    def perf(self, p):
+        """performance"""
+        return self.lam * self.M * (1 - p)
+
+    """Stage 3"""
+    def cons(self, p):
+        """connections"""
+        return self.rho * self.M * (1 - p)
+
+    def common_plot(self, **kwargs):
+        title = f"{kwargs['title']} "
+        if self.mode == Mode.on_lambda:
+            title += f'M={self.M} N={self.N} mu={self.mu}'
+            plt.xlabel('lambda')
+        elif self.mode == Mode.on_mu:
+            title += f'M={self.M} N={self.N} lambda={self.lam}'
+            plt.xlabel('mu')
+        elif self.mode == Mode.on_rho:
+            title += f'M={self.M} N={self.N} lambda={self.lam}'
+            plt.xlabel('rho')
+        elif self.mode == Mode.on_k:
+            title += f'M={self.M} lambda={self.lam} mu={self.mu}'
+            plt.xlabel('N')
+
+    # file_title = f"_M{self.M}_N{self.N}_mu{self.mu}"
+
+        plt.title(title)
+        plt.plot(self._range, kwargs['engset'], label='Engset')
+        plt.plot(self._range, kwargs['erlang'], label='Erlag')
+        plt.plot(self._range, kwargs['binom'], label='Binom')
+        plt.legend()
+        # plt.savefig(file_title.replace('.', '') + '.png')
+        plt.show()
+\end{lstlisting}
+
 
 \section{Результат}\label{sec:result}
 
@@ -213,7 +287,6 @@ common_plot(title='Average connections number',   engset=E1_k, erlang=E2_k, bino
 	\item $\lambda$
 	\item $\mu$
 	\item $\rho = \frac{\lambda}{\mu}$
-	\item нормированной интенсивности поступления нагрузки
 \end{itemize}
 Для каждого конкретного случая необходимо учитывать все эти характеристики в совокупности для получения требуемых параметров системы.
 
