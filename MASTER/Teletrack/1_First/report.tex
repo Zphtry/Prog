@@ -61,7 +61,7 @@
 \]
 
 \subsection{Биноминальное распределение}\label{subsec:binom}
-Пусть $\alpha = \frac{\lambda}{\mu + \lambda}$
+Пусть $\alpha = \frac{\rho}{\rho + 1}$
 
 \[
      p = \binom{M}{N} \alpha ^ N (1 - \alpha) ^ {M - N}
@@ -141,12 +141,12 @@ for l in l_range:
 
 common_plot(title='Loss probabitlty', engset=P1_k, erlang=P2_k, binom=P3_k)
 common_plot(title='Performance', engset=G1_k, erlang=G2_k, binom=G3_k)
-common_plot(title='Average connexitions number',   engset=E1_k, erlang=E2_k, binom=E3_k)
+common_plot(title='Average connections number',   engset=E1_k, erlang=E2_k, binom=E3_k)
 \end{lstlisting}
 
-\section{Результат}
+\section{Результат}\label{sec:result}
 
-\subsection{$M = N$}
+\subsection{$M = N$}\label{subsec:}
 
 \begin{figure}[!htb]
 \centering

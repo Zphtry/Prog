@@ -6,43 +6,38 @@ from mode_of_work import Mode
 fact = math.factorial
 
 """Режим работы (какой параметр будет меняться)"""
-mode = Mode.on_rho
+mode = Mode.on_lambda
 
-# поступление нагрузки / уход нагрузки / соотношение
-lam, mu = .5, .5
+# поступление нагрузки / уход нагрузки
+lam, mu = .9, .9
 
 # число входов / число выходов
-M, N = 50, 10
+M, N = 10, 10
 
 # один из четырёх параметров, который будет меняться
 _range = np.arange(.01, 1, .05)
+
+
+if mode == Mode.on_k:
+    _range = np.arange(1, 20)
+
+queueing = Queueing(lam, mu, M, N, _range, mode)
 
 # вероятность потерь вызовов / производительность / среднее число соединений
 P1_k, G1_k, E1_k = [], [], []
 P2_k, G2_k, E2_k = [], [], []
 P3_k, G3_k, E3_k = [], [], []
 
-# if mode == Mode.on_lambda:
-#     pass
-# elif mode == Mode.on_mu:
-#     pass
-# elif mode == Mode.on_rho:
-#     pass
-# elif mode == Mode.on_k:
-#     pass
-
-queueing = Queueing(lam, mu, M, N, _range, mode)
-
 for var in _range:
 
     if mode == Mode.on_lambda:
         queueing.lam, queueing.rho = var, var / mu
     elif mode == Mode.on_mu:
-        queueing.mu, queueing.rho = var, lam / var
+        queueing.rho = lam / var
     elif mode == Mode.on_rho:
         queueing.rho = var
     elif mode == Mode.on_k:
-        pass
+        queueing.N = var
 
     P1_k.append(queueing.p_engset())
     G1_k.append(queueing.perf(P1_k[-1]))
