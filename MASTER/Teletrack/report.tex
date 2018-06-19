@@ -9,8 +9,19 @@
 \usepackage{listings}
 \usepackage[section]{placeins}
 \usepackage[T1]{fontenc}
+\usepackage{float}
 \usepackage{url}
 \newcommand\purl[1]{\protect\url{#1}} % "protected url"
+
+\usepackage[section]{placeins}
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
 \begin{document}
 
 \title{Оценка параметров систем массового обслуживания}
@@ -26,7 +37,7 @@
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=1.00]{comm_model.png}
+\includegraphics[scale=1.00]{assets/comm_model.png}
 \end{figure}
 
 
@@ -218,27 +229,49 @@ class Queueing:
 \end{lstlisting}
 
 
-\section{Результат}\label{sec:result}
+\section{Задача 1. Зависимость параметров от $\lambda$}\label{sec:result}
 
 \subsection{$M = N$}\label{subsec:}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{loss_prob_M10_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/loss_prob_M10_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{perf_M10_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/perf_M10_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{aver_conn_M10_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/aver_conn_M10_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M > N$}\label{subsec2:}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_1/loss_prob_M20_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_1/perf_M20_N10_mu09.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_1/aver_conn_M20_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
@@ -246,26 +279,26 @@ class Queueing:
 \subsection{$M ≫ N$}
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{loss_prob_M50_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/loss_prob_M50_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{perf_M50_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/perf_M50_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.00]{aver_conn_M50_N10_mu09.png}
+\includegraphics[scale=1.00]{assets/iss_1/aver_conn_M50_N10_mu09.png}
 \caption{}
 \label{}
 \end{figure}
 
-\section{Вывод}
+\subsection{Вывод}
 При исследовании зависимости параметров коммутационной системы от интенсивности поступления нагрузки были получены следующие выводы:
 \begin{itemize}
 	\item При $M = N$:
@@ -290,7 +323,217 @@ class Queueing:
 \end{itemize}
 Для каждого конкретного случая необходимо учитывать все эти характеристики в совокупности для получения требуемых параметров системы.
 
+\section{Задача 2. Зависимость параметров от $\mu$}
 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/loss_prob_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/perf_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/aver_conn_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M > N$}\label{subsec2:}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/loss_prob_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/perf_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/aver_conn_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M ≫ N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/loss_prob_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/perf_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_2/aver_conn_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{Вывод}
+Будет
+
+
+\section{Задача 3. Зависимость параметров от $\rho$}
+\subsection{$M = N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/loss_prob_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/perf_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/aver_conn_M10_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M > N$}\label{subsec2:}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/loss_prob_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/perf_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/aver_conn_M20_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M ≫ N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/loss_prob_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/perf_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_3/aver_conn_M50_N10_lam01.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{Вывод}
+Будет
+
+
+\section{Задача 4. Зависимость параметров от $k = \frac{N}{M}$. Заменена зависимостью от $N$ при фиксированном $M$}
+\subsection{$M = N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/loss_prob_M10_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/perf_M10_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/aver_conn_M10_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M > N$}\label{subsec2:}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/loss_prob_M20_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/perf_M20_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/aver_conn_M20_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{$M ≫ N$}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/loss_prob_M50_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/perf_M50_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=1.00]{assets/iss_4/aver_conn_M50_lam08_mu04.png}
+\caption{}
+\label{}
+\end{figure}
+
+\subsection{Вывод}
+Будет
 
 
 \end{document}

@@ -58,7 +58,12 @@ class Queueing:
             plt.xlabel('N')
 
         title += variables
-        file_title += variables.replace(' ', '_').replace('=', '').replace('.', '')
+        file_title += variables\
+            .replace(' ', '_')\
+            .replace('=', '')\
+            .replace('.', '')\
+            .replace('λ', 'lam')\
+            .replace('μ', 'mu')
         print(file_title)
 
         plt.title(title)
