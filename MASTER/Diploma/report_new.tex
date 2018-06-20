@@ -1,35 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% University Assignment Title Page 
-% LaTeX Template
-% Version 1.0 (27/12/12)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-% 
-% Instructions for using this template:
-% This title page is capable of being compiled as is. This is not useful for 
-% including it in another document. To do this, you have two options: 
-%
-% 1) Copy/paste everything between \begin{document} and \end{document} 
-% starting at \begin{titlepage} and paste this into another LaTeX file where you 
-% want your title page.
-% OR
-% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
-% move this file to the same directory as the LaTeX file you wish to add it to. 
-% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
-% title page.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\title{Title page with logo}
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
 
 % \documentclass[14pt]{extarticle}
 \documentclass[bibliography=totocnumbered]{scrartcl}
@@ -45,6 +13,7 @@
 \usepackage[margin=.8in]{geometry}
 \usepackage{listings}
 \usepackage[section]{placeins}
+\usepackage{listings}
 \begin{document}
 
 
@@ -90,15 +59,6 @@
 \emph{Руководитель:} А.В. \textsc{Стромов} % Supervisor's Name
 \end{flushleft}
 
-
-% If you don't want a supervisor, uncomment the two lines below and remove the section above
-% \Large \emph{Author:}\\
-% John \textsc{Smith}\\[3cm] % Your name
-
-%----------------------------------------------------------------------------------------
-%	DATE SECTION
-%----------------------------------------------------------------------------------------
-\vfill % Fill the rest of the page with whitespace
 \begin{center}
 Воронеж 2018
 \end{center}
@@ -109,7 +69,9 @@
 \newpage 
 
 \section{Введение}
-Всё большее распространение получают системы умного дома. Перед инженерами встаёт всё больше технических препятствий на пути реализации подобных систем, например такие как автономность устройств, процессом сбора данных с большого числа датчиков, обработка собранной информации и принятие требуемых решений. 
+Всё большее распространение получают системы умного дома. Перед инженерами встаёт всё больше технических препятствий на пути реализации подобных систем, например такие как автономность устройств, процессом сбора данных с большого числа датчиков, обработка собранной информации и принятие требуемых решений. \\
+Для больших распределённых систем с большим количеством обрабатываемой информации препочтительным способом реализации сети сенсоров может являться беспроводная сенсорная сеть. \\ 
+При этом могут рассматриваться как случаи мобильных датчиков (так называемые MANET) и стационарные сети.
 
 \section{Цель}
 
@@ -123,7 +85,41 @@
 
 \end{itemize}
 
-\section{Описание возможностей модуля}
+\section{Теоретическое обоснование}
+
+\subsection{Топология}
+Важнейшей характеристикой сети является её \textbf{топология} . Для сетей как правило используются:
+\begin{itemize}
+	\item Звезда
+	\item Кластерное дерево
+	\item Меш
+\end{itemize}
+
+В этой работе предполагается использование топологии меш, где каждый узел связан с несколькими своими соседями, и в сети присутствет один узел сбора информации.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=1.00]{topology.jpg}
+\end{figure}
+
+\subsection{Компоненты сенсорного узла}
+
+Необходимыми компонентами сенсорного узла являются:
+\begin{itemize}
+	\item Микроконтроллер
+	\item Сенсорные датчики
+	\item Источник питания (как правило батарея)
+	\item Радиопередатчик
+\end{itemize}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=1.00]{components.jpg}
+\end{figure}
+
+
+
+\section{Описание возможностей модуля, используемого в работе}
 
 \begin{itemize}
 
@@ -421,9 +417,146 @@
 
 Если расстояние между модулями слишком маленькое (меньше 50 см), стоит установить мощность передачи небольшой (P1 - P3). Иначе, передача будет перенасыщена и соединение не удастся. Если расстояние составляет несколько сантиметров, передача, вероятно, не получится.
 
+\section{Описание программы}
+
+\subsection{Прошивка для arduino}
+Программа представляет собой код, ожидающий поступления команд с серийного порта, и дейсвующий по двум сценариям:
+\begin{itemize}
+	\item Команды \lstinline{config.enable} и \lstinline{config.disable} соответственно включают и отключат режим конфигурирования для модуля arduino.
+	\item Любая другая команда отправляется напрямую в модуль. Команды для модуля имую синтакис \lstinline{AT+...}, где ... один из допустимых параметров модуля.
+\end{itemize} 
+Код программы
+\begin{lstlisting}
+
+#include <SoftwareSerial.h>
+SoftwareSerial radio(3, 4);
+int setPin = 2;
+
+String command = "";
+
+
+void setup() {
+
+  Serial.begin(9600);
+  radio.begin(9600);
+
+  pinMode(setPin, OUTPUT);
+  digitalWrite(setPin, HIGH);
+
+  getConfigStatus();
+}
+
+
+
+void loop() {
+
+  command = readSerial();
+
+  if (command.length() > 0) {
+    if (command == "config.enable") {
+      enableConfig();
+    }
+
+    else if (command == "config.disable") {
+      disableConfig();
+    }
+
+    else if (command == "config.status") {
+      getConfigStatus();
+    }
+
+    else {
+      radio.print(command);
+      Serial.println("MESSAGE: " + command);
+    }
+  }
+
+  readRadio();
+
+  delay(500);
+
+  command = "";
+}
+
+void enableConfig() {
+  digitalWrite(setPin, LOW);
+  Serial.println("Config enabled");
+}
+
+void disableConfig() {
+  digitalWrite(setPin, HIGH);
+  Serial.println("Config disabled");
+}
+
+void getConfigStatus() {
+  if (digitalRead(setPin) == 0) {
+    Serial.println("CONFIG=TRUE");
+  } else {
+    Serial.println("CONFIG=FALSE");
+  }
+}
+
+
+
+String readSerial() {
+  String command = "";
+
+  while (Serial.available() > 0) {
+    command += char(Serial.read());
+  }
+
+  return command;
+}
+
+String readRadio() {
+  String response = "";
+
+  while (radio.available() > 0) {
+    response += char(radio.read());
+  }
+
+  if (response.length() > 0) {
+    response = "RESPONSE: " + response;
+    Serial.print(response);
+    return response;
+  }
+
+}
+\end{lstlisting} 
+
+\subsection{Бек-энд на Java Spring}
+Бэк-энд является прослойкой между фронт-эндом, где планируется размещение основной логики и собственно Arduino с модулем. Код, описывающий контроллер, обрабатывающий запросы к веб-серверу.
+
+\begin{lstlisting}
+package somepackage;
+import arduino.*;
+import somepackage.Flower;
+import somepackage.FlowerRepository;
+import javax.annotation.PostConstruct;
+
+@Controller
+@RequestMapping(path="/arduino_radio")
+public class FlowerController {
+
+  private Arduino arduino;
+
+  @PostConstruct
+  void afterInit() {
+    arduino = new Arduino("ttyUSB1", 9600);
+    arduino.openConnection();
+  }
+
+  @GetMapping(path="/disable_config")
+  public @ResponseBody void disableConfig() {
+    arduino.serialWrite("config.disable");
+  }
+}
+\end{lstlisting}
+
+\subsection{Фронт-энд на Angular}
+Фронт-энд предполагает наличие UX элементов для управления параметрами модуля, такими как канал, дальность и другие. На данный момент фронт-энд находится в разработке, также возможно в будущем изменится цель проекта, что приведёт к переписыванию модуля.
 
 \section{Вывод}
-
 Большое количество настроек (адрес, канал, скорость) и четыре режима позволяют предположить широкие вохможности модуля HC-11 для создания сенсорных сетей:
  
 \begin{itemize}
@@ -441,18 +574,22 @@
 
 \begin{thebibliography}{9}
 \bibitem{latexcompanion} 
-Легочный Фонд России
-\\\texttt{http://legkie.org}
+National Instruments / What Is a Wireless Sensor Network?
+\\\texttt{http://www.ni.com/white-paper/7142/en/}
  
-\bibitem{einstein} 
-Albert Einstein. 
-\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
-[\textit{On the electrodynamics of moving bodies}]. 
-Annalen der Physik, 322(10):891–921, 1905.
- 
+
 \bibitem{knuthwebsite} 
-Knuth: Computers and Typesetting,
-\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+Wireless sensor network
+\\\texttt{https://en.wikipedia.org/wiki/Wireless\char`_sensor\char`_network}
+
+\bibitem{suisse} 
+Internet of Things: Wireless Sensor Networks
+\\\texttt{http://www.iec.ch/whitepaper/pdf/iecWP-internetofthings-LR-en.pdf}
+
+\bibitem{radio} 
+HC-11 Wireless Serial Port Module
+\\\texttt{https://www.elecrow.com/download/HC-11.pdf}
+
 \end{thebibliography}
 
 
