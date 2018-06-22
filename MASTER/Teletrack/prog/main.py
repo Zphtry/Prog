@@ -6,7 +6,7 @@ from mode_of_work import Mode
 fact = math.factorial
 
 """Режим работы (какой параметр будет меняться)"""
-mode = Mode.on_k
+mode = Mode.on_lambda
 
 # поступление нагрузки / уход нагрузки
 lam, mu = .8, .4
