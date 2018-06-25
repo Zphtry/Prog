@@ -1,3 +1,5 @@
 *.swp
 .idea
 *.class
+*.synctex.gz
+*.cache
