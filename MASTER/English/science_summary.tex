@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[margin=.7in]{geometry}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\begin{document}
+
+\title{Possibility of creating real sensor networks}
+\author{Andrew Valikov}
+\date{}
+\maketitle
+
+\section{Introduction}
+IoT Systems of the home automation become more and more distributed among people. The engineers have to deal with increasing technical barriers to the creation of such systems, for example, the autonomy of devices, the process of gathered data from a large number of sensors and making the required decisions. For highly distributed systems with a large number of information to process, a wireless sensor network can become the most appropriate approach. This can be considered as cases of mobile sensors (the so-called MANET) and fixed networks.
+
+\section{Research traget}
+Investigation of the characteristics of real sensor networks. To talk exctly, the work is in progress in the following directions:
+
+\begin{itemize}
+\item To increase network lifetime (to reduce power consumption). Ideally, one sensor unit should consume as low energy as possible, and be connect to a battery unit for a long time.
+
+\item To investigate how much information can be gathered by network from the surrounding world without loss of data. Also, to vary the number of participants in the network. Develop algorithms that make it possible to get as close as possible to the theoretical limit of such networks (and we of course should find appropriate formula for this case).
+\end{itemize}
+
+
+\section{Theory}
+
+\subsection{Topology}
+The most important characteristic of the network is it \textbf{topology}. As a rule they use next types of tologies:
+\begin{itemize}
+	\item Star
+	\item Cluster tree
+	\item Mesh
+\end{itemize}
+
+In this work, we use the mesh topology, where each node is associated with several of its neighbors, and there is one node in network that collects all the data.
+
+\subsection{Components of the sensor node}
+The necessary components of the sensory node are:
+\begin{itemize}
+	\item Microcontroller
+	\item Sensors
+	\item Energy source (usually a battery)
+	\item Radio transmitter
+\end{itemize}
+
+% \section{Practice and inplementation}
+% So the program consists of three important parts. Arduino code, java backend and Angular front-end.
+
+% \subsection{Arduino}
+% The program is a code waiting for commands to arrive from the serial port, and it operates according to two scenarios:
+% \begin{itemize}
+% 	\item Команды \lstinline{config.enable} и \lstinline{config.disable} соответственно включают и отключат режим конфигурирования для модуля arduino.
+% 	\item Любая другая команда отправляется напрямую в модуль. Команды для модуля имую синтакис \lstinline{AT+...}, где ... один из допустимых параметров модуля.
+% \end{itemize} 
+% Код программы
+
+
+\end{document}
+    
