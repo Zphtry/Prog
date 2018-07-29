@@ -10,9 +10,15 @@ def arduino(request):
 
   if request.method == 'GET':
     ser = serial.Serial('/dev/ttyUSB0', 9600)
+    resp = {'mne': ser.readline().decode('utf-8')}
     ser.write(b'config.enable')
+    resp['mne'] += ser.readline().decode('utf-8')
     ser.write(b'AT')
-    return JsonResponse({'mne': ser.readlines()})
+    resp['mne'] += ser.readline().decode('utf-8')
+    resp['mne'] += ser.readline().decode('utf-8')
+    ser.close()
+    resp['mne'] = resp['mne'].replace('\n', '').replace('\r', '')
+    return JsonResponse(resp)
 
   # elif request.method == 'POST':
   #     data = JSONParser().parse(request)

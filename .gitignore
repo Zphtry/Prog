@@ -4,3 +4,4 @@
 *.synctex.gz
 *.cache
 *.pyc
+node_modules
