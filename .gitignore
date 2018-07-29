@@ -3,3 +3,4 @@
 *.class
 *.synctex.gz
 *.cache
+*.pyc
