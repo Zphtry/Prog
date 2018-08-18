@@ -1,7 +1,8 @@
 
 #include <SoftwareSerial.h>
-SoftwareSerial radio(3, 4);
-int setPin = 2;
+//                 TXD RXD
+SoftwareSerial radio(6, 7);
+int setPin = 5;
 
 String command = "";
 
